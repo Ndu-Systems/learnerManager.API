@@ -18,11 +18,20 @@ namespace LearnerManager.API
 {
     public class Startup
     {
-        public Startup(IConfiguration configuration)
+        //public Startup(IConfiguration configuration)
+        //{
+        //    Configuration = configuration;
+        //}
+        public Startup(IHostingEnvironment env)
         {
-            Configuration = configuration;
-        }
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                .AddEnvironmentVariables();
 
+            Configuration = builder.Build();
+        }
         public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -36,14 +45,13 @@ namespace LearnerManager.API
             services.ConfigureJWTAuthentication(Configuration);
             services.ConfigureServices();
             services.ConfigureUserIdentity();
-            services.AddScoped<DbInitializer>();
             services.AddMvc()
             .AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore)
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, DbInitializer seeder)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             if (env.IsDevelopment())
             {
@@ -59,7 +67,6 @@ namespace LearnerManager.API
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseMvc();
-            seeder.Seed(app).Wait();
         }
     }
 }

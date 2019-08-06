@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LearnerManager.API.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20190806044352_identityUserContext")]
-    partial class identityUserContext
+    [Migration("20190806153316_InitialCreate")]
+    partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

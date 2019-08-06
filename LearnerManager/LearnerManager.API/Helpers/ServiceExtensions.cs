@@ -59,7 +59,8 @@ namespace LearnerManager.API.Helpers
             var _connectionString = _appSetting.connectionString;
             if (_connectionString != null)
                 services.AddDbContext<RepositoryContext>(
-                    options => options.UseSqlServer(_connectionString)
+                    options => options.UseSqlServer(_connectionString),
+                    ServiceLifetime.Scoped
                 );
         }
 
