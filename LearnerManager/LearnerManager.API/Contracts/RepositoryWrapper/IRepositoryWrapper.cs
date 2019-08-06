@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using LearnerManager.API.Contracts.Learner;
 using LearnerManager.API.Contracts.Message;
 using LearnerManager.API.Contracts.SMS;
+using LearnerManager.API.Contracts.Users;
 
 namespace LearnerManager.API.Contracts.RepositoryWrapper
 {
@@ -13,6 +14,7 @@ namespace LearnerManager.API.Contracts.RepositoryWrapper
         ILearnerRepository Learner { get; }
         IMessageRepository Message { get; }
         ISMSRepository Sms { get; }
+        IUserRepository User { get; }
         void Save();
     }
 }

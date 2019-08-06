@@ -34,7 +34,9 @@ namespace LearnerManager.API
             services.ConfigureRepositoryWrapper();
             services.ConfigureSQLServer(Configuration);
             services.ConfigureJWTAuthentication(Configuration);
-            services.AddTransient<DbInitializer>();
+            services.ConfigureServices();
+            services.ConfigureUserIdentity();
+            services.AddScoped<DbInitializer>();
             services.AddMvc()
             .AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore)
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
@@ -57,7 +59,7 @@ namespace LearnerManager.API
             app.UseStaticFiles();
             app.UseAuthentication();
             app.UseMvc();
-            seeder.Seed().Wait();
+            seeder.Seed(app).Wait();
         }
     }
 }

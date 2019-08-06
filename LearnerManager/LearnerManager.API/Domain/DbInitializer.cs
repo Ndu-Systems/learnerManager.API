@@ -4,7 +4,9 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using LearnerManager.API.Domain.Entities;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace LearnerManager.API.Domain
 {
@@ -22,37 +24,46 @@ namespace LearnerManager.API.Domain
         private UserManager<User> _userManager;
         private RoleManager<IdentityRole> _roleManager;
 
-        public async Task Seed()
+        public async Task Seed(IApplicationBuilder applicationBuilder)
         {
-            var user = await _userManager.FindByEmailAsync("admin@learnermaneger.co.za");
-            var Admin = "Admin";
-            if (user == null)
+            using (var serviceScope = applicationBuilder.ApplicationServices.GetRequiredService<IServiceScopeFactory>()
+                .CreateScope())
             {
-                //Check if a role for admin exist or nah
-                if (!(await _roleManager.RoleExistsAsync(Admin)))
-                    await _roleManager.CreateAsync(new IdentityRole(Admin));
+                _repositoryContext = serviceScope.ServiceProvider.GetService<RepositoryContext>();
 
-                user = new User
+                if (!_repositoryContext.Users.Any())
                 {
-                    Email = "admin@learnermaneger.co.za",
-                    UserName = "TestAdmin",
-                    School = "Ndu Systems School of Tech",
-                    Region = "Fourways"
-                };
+                    var user = await _userManager.FindByEmailAsync("admin@learnermaneger.co.za");
+                    var Admin = "Admin";
+                    if (user == null)
+                    {
+                        //Check if a role for admin exist or nah
+                        if (!(await _roleManager.RoleExistsAsync(Admin)))
+                            await _roleManager.CreateAsync(new IdentityRole(Admin));
 
-                var createUserResult = await _userManager.CreateAsync(user, "Password01!");
-                var addRoleResult = await _userManager.AddToRoleAsync(user, Admin);
-                var addClaimResult = await _userManager.AddClaimAsync(user, new Claim("SuperUser", "True"));
+                        user = new User
+                        {
+                            Email = "admin@learnermaneger.co.za",
+                            UserName = "TestAdmin",
+                            School = "Ndu Systems School of Tech",
+                            Region = "Fourways"
+                        };
 
-                if (!createUserResult.Succeeded ||
-                    !addRoleResult.Succeeded ||
-                    !addClaimResult.Succeeded)
-                {
-                    throw new InvalidOperationException("Failed to build user or role");
+                        var createUserResult = await _userManager.CreateAsync(user, "Password01!");
+                        var addRoleResult = await _userManager.AddToRoleAsync(user, Admin);
+                        var addClaimResult = await _userManager.AddClaimAsync(user, new Claim("SuperUser", "True"));
+
+                        if (!createUserResult.Succeeded ||
+                            !addRoleResult.Succeeded ||
+                            !addClaimResult.Succeeded)
+                        {
+                            throw new InvalidOperationException("Failed to build user or role");
+                        }
+                    }
                 }
+
+                _repositoryContext.SaveChanges();
             }
-
-
         }
 
     }

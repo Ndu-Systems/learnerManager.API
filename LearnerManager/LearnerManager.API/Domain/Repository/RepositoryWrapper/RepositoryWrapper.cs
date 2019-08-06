@@ -6,9 +6,11 @@ using LearnerManager.API.Contracts.Learner;
 using LearnerManager.API.Contracts.Message;
 using LearnerManager.API.Contracts.RepositoryWrapper;
 using LearnerManager.API.Contracts.SMS;
+using LearnerManager.API.Contracts.Users;
 using LearnerManager.API.Domain.Repository.Learner;
 using LearnerManager.API.Domain.Repository.Message;
 using LearnerManager.API.Domain.Repository.SMS;
+using LearnerManager.API.Domain.Repository.Users;
 
 namespace LearnerManager.API.Domain.Repository.RepositoryWrapper
 {
@@ -18,7 +20,7 @@ namespace LearnerManager.API.Domain.Repository.RepositoryWrapper
         private ILearnerRepository _learnerRepository;
         private IMessageRepository _messageRepository;
         private ISMSRepository _smsRepository;
-
+        private IUserRepository _userRepository;
         public RepositoryWrapper(RepositoryContext repositoryContext)
         {
             _repositoryContext = repositoryContext;
@@ -60,6 +62,20 @@ namespace LearnerManager.API.Domain.Repository.RepositoryWrapper
                 return _smsRepository;
             }
         }
+
+        public IUserRepository User
+        {
+            get
+            {
+                if (_userRepository == null)
+                {
+                    _userRepository = new UserRepository(_repositoryContext);
+                }
+
+                return _userRepository;
+            }
+        }
+
         public void Save()
         {
             _repositoryContext.SaveChanges();

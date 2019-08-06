@@ -4,10 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LearnerManager.API.Contracts.RepositoryWrapper;
+using LearnerManager.API.Contracts.Users;
 using LearnerManager.API.Domain;
+using LearnerManager.API.Domain.Entities;
 using LearnerManager.API.Domain.Repository.RepositoryWrapper;
+using LearnerManager.API.Services.Users;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -39,7 +43,12 @@ namespace LearnerManager.API.Helpers
         }
         public static void ConfigureRepositoryWrapper(this IServiceCollection services)
         {
-            services.AddScoped<IRepositoryWrapper, RepositoryWrapper>();
+            services.AddTransient<IRepositoryWrapper, RepositoryWrapper>();
+        }
+
+        public static void ConfigureServices(this IServiceCollection services)
+        {
+            services.AddTransient<IUserService, UserService>();
         }
 
         public static void ConfigureSQLServer(this IServiceCollection services, IConfiguration config)
@@ -79,5 +88,12 @@ namespace LearnerManager.API.Helpers
                     };
                 });
         }
+
+        public static void ConfigureUserIdentity(this IServiceCollection services)
+        {
+            services.AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<RepositoryContext>();
+        }
+
     }
 }
