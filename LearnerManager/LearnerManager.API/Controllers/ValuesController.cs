@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LearnerManager.API.Contracts.Users;
+using LearnerManager.API.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LearnerManager.API.Controllers
@@ -10,6 +12,11 @@ namespace LearnerManager.API.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        private readonly IUserService _userService;
+        public ValuesController(IUserService userService)
+        {
+            _userService = userService;
+        }
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
@@ -26,8 +33,9 @@ namespace LearnerManager.API.Controllers
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody] string value)
+        public ActionResult Post([FromBody]LoginModel model)
         {
+            return Ok(_userService.LoginUser(model));
         }
 
         // PUT api/values/5
