@@ -8,10 +8,10 @@ namespace LearnerManager.API.Domain
     public class RepositoryContext: IdentityDbContext<User> 
     {
 
-        public RepositoryContext()
-        {
+        //public RepositoryContext()
+        //{
 
-        }
+        //}
 
         public RepositoryContext(DbContextOptions options)
             : base(options)
