@@ -22,6 +22,7 @@ namespace LearnerManager.API.Services.Message
             try
             {
                 _repo.Message.Create(model.ToEntity());
+                _repo.Save();
                 return SmsEnum.SuccessMessage.GetDescription();
             }
             catch (Exception e)

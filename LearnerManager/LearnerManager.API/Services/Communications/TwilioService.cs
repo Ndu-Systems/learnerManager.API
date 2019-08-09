@@ -31,11 +31,15 @@ namespace LearnerManager.API.Services.Communications
         }
         public TwilioModel SendSms(SmsModel sms)
         {
-            var message = MessageResource.Create(
-                to: new PhoneNumber(sms.SendTo), 
-                from: new PhoneNumber(sms.FromNumber),
-                body: sms.Subject +"  "+sms.Body+" "+DateTime.Now.ToShortDateString(),
-                client:_client); // pass in the custom client
+            //var message = MessageResource.Create(
+            //    to: new PhoneNumber(sms.SendTo), 
+            //    from: new PhoneNumber(sms.FromNumber),
+            //    body: sms.Subject +"  "+sms.Body+" "+DateTime.Now.ToShortDateString(),
+            //    client:_client); // pass in the custom client
+            var message = new 
+            {
+                Sid = "debuging"
+            };
 
             if (!string.IsNullOrEmpty(message.Sid))
             {
@@ -43,14 +47,14 @@ namespace LearnerManager.API.Services.Communications
                 {
                     MessageId = Guid.NewGuid(),
                     MessageType = sms.Subject,
-                    MessageBody = sms.Body
+                    MessageBody = sms.Body + " " + DateTime.Now.ToShortDateString()
                 };
                 var smsModel = new SmsModel
                 {
                     SMSId = Guid.NewGuid(),
                     Subject = sms.Subject + "Id:" + message.Sid + "_" + Guid.NewGuid().ToString().Substring(5, 9),
                     SendTo = sms.SendTo,
-                    Body = sms.Body,
+                    Body = sms.Body + " " + DateTime.Now.ToShortDateString(),
                     FromNumber = sms.FromNumber,
                     StatusId = 1
                 };
