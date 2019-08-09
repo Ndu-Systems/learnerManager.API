@@ -96,7 +96,7 @@ namespace LearnerManager.API.Migrations
                         .IsRequired()
                         .HasMaxLength(100);
 
-                    b.Property<string>("SendTo");
+                    b.Property<string>("SentTo");
 
                     b.Property<int>("StatusId");
 

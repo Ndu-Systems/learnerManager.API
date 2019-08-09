@@ -39,7 +39,7 @@ namespace LearnerManager.API.Services.Communications
             #else
              
                         var message = MessageResource.Create(
-                            to: new PhoneNumber(sms.SendTo),
+                            to: new PhoneNumber(sms.SentTo),
                             from: new PhoneNumber(sms.FromNumber),
                             body: sms.Subject + "  " + sms.Body + " " + DateTime.Now.ToShortDateString(),
                             client: _client); // pass in the custom client
@@ -57,7 +57,7 @@ namespace LearnerManager.API.Services.Communications
                 {
                     SMSId = Guid.NewGuid(),
                     Subject = sms.Subject + "Id:" + message.Sid + "_" + Guid.NewGuid().ToString().Substring(5, 9),
-                    SendTo = sms.SendTo,
+                    SentTo = sms.SentTo,
                     Body = sms.Body + " " + DateTime.Now.ToShortDateString(),
                     FromNumber = sms.FromNumber,
                     StatusId = 1

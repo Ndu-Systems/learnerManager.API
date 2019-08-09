@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LearnerManager.API.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20190809123707__assetCategorModels")]
-    partial class _assetCategorModels
+    [Migration("20190809170100_EditSmsColumn_2")]
+    partial class EditSmsColumn_2
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

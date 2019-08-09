@@ -11,7 +11,7 @@ namespace LearnerManager.API.Models
         [Key]
         public Guid SMSId { get; set; }
         public string Subject { get; set; }
-        public string SendTo { get; set; }
+        public string SentTo { get; set; }
         public string FromNumber { get; set; }
         [Required(ErrorMessage = "SMS body is required")]
         [StringLength(100, ErrorMessage = "SMS body cannot be longer then 100 characters")]

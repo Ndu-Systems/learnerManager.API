@@ -15,7 +15,7 @@ namespace LearnerManager.API.Helpers
             {
                 SMSId = model.SMSId,
                 Subject = model.Subject,
-                SendTo = model.SendTo,
+                SentTo = model.SentTo,
                 Body = model.Body,
                 StatusId = model.StatusId
             };
@@ -26,7 +26,7 @@ namespace LearnerManager.API.Helpers
             {
                 SMSId = model.SMSId,
                 Subject = model.Subject,
-                SendTo = model.SendTo,
+                SentTo = model.SentTo,
                 Body = model.Body,
                 StatusId = model.StatusId
             };
