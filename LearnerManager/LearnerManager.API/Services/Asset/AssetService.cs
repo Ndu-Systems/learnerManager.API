@@ -17,7 +17,7 @@ namespace LearnerManager.API.Services.Asset
         {
             _repo = repo;
         }
-        public string CreateAsset(AssetModel model)
+        public AssetModel CreateAsset(AssetModel model)
         {
             try
             {
@@ -25,7 +25,7 @@ namespace LearnerManager.API.Services.Asset
                 model.StatusId = 1;
                 _repo.Asset.Create(model.ToEntity());
                 _repo.Save();
-                return "Asset Created successfully !";
+                return model;
             }
             catch (Exception e)
             {
@@ -53,7 +53,7 @@ namespace LearnerManager.API.Services.Asset
             return _repo.Asset.FindAll().FirstOrDefault(x => x.AssetId == id).ToModel();
         }
 
-        public string UpdateAsset(Guid id,AssetModel model)
+        public AssetModel UpdateAsset(Guid id,AssetModel model)
         {
             try
             {
@@ -67,7 +67,7 @@ namespace LearnerManager.API.Services.Asset
                     assetModel.StatusId = model.StatusId;
                     _repo.Asset.Update(assetModel.ToEntity());
                     _repo.Save();
-                    return "Asset updated successfully !";
+                    return assetModel;
                 }
                 else
                 {

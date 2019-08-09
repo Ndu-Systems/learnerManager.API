@@ -16,7 +16,7 @@ namespace LearnerManager.API.Services.Category
         {
             _repo = repo;
         }
-        public string CreateCategory(CategoryModel model)
+        public CategoryModel CreateCategory(CategoryModel model)
         {
             try
             {
@@ -24,7 +24,7 @@ namespace LearnerManager.API.Services.Category
                 model.StatusId = 1;
                 _repo.Category.Create(model.ToEntity());
                 _repo.Save();
-                return "Category Created successfully !";
+                return model;
             }
             catch (Exception e)
             {
@@ -51,11 +51,10 @@ namespace LearnerManager.API.Services.Category
             return _repo.Category.FindAll().FirstOrDefault(x => x.CategoryId == id).ToModel();
         }
 
-        public string UpdateCategory(Guid id,CategoryModel model)
+        public CategoryModel UpdateCategory(Guid id,CategoryModel model)
         {
             try
             {
-               
                 var categoryModel = GetById(id);
                 if (categoryModel != null)
                 {
@@ -64,7 +63,7 @@ namespace LearnerManager.API.Services.Category
                     categoryModel.StatusId = model.StatusId;
                     _repo.Category.Update(categoryModel.ToEntity());
                     _repo.Save();
-                    return "Category updated successfully !";
+                    return categoryModel;
                 }
                 else
                 {

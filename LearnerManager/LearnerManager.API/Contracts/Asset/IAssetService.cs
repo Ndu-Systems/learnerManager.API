@@ -8,9 +8,9 @@ namespace LearnerManager.API.Contracts.Asset
 {
     public interface IAssetService
     {
-        string CreateAsset(AssetModel model);
+        AssetModel CreateAsset(AssetModel model);
         List<AssetModel> GetAll();
         AssetModel GetById(Guid id);
-        string UpdateAsset(Guid id,AssetModel model);
+        AssetModel UpdateAsset(Guid id,AssetModel model);
     }
 }

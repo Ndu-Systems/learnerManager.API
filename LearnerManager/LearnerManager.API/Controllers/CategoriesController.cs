@@ -45,7 +45,7 @@ namespace LearnerManager.API.Controllers
         public IActionResult Put(Guid id, [FromBody]CategoryModel model)
         {
             var result = _categoryService.UpdateCategory(id, model);
-            if (!string.IsNullOrEmpty(result))
+            if (result!=null)
             { 
                 return Ok(result);
             }

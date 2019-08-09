@@ -8,9 +8,9 @@ namespace LearnerManager.API.Contracts.Category
 {
    public interface ICategoryService
    {
-       string CreateCategory(CategoryModel model);
+       CategoryModel CreateCategory(CategoryModel model);
        List<CategoryModel> GetAll();
        CategoryModel GetById(Guid id);
-       string UpdateCategory(Guid id,CategoryModel model);
+       CategoryModel UpdateCategory(Guid id,CategoryModel model);
    }
 }

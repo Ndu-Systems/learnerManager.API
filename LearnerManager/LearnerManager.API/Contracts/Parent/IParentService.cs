@@ -8,9 +8,9 @@ namespace LearnerManager.API.Contracts.Parent
 {
     public interface IParentService
     {
-        string CreateParent(ParentModel model);
+        ParentModel CreateParent(ParentModel model);
         List<ParentModel> GetAllPArents();
         ParentModel GetById(Guid id);
-        string UpdateParent(Guid id, ParentModel model);
+        ParentModel UpdateParent(Guid id, ParentModel model);
     }
 }
