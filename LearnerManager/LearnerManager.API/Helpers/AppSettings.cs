@@ -9,5 +9,9 @@ namespace LearnerManager.API.Helpers
     {
         public string connectionString { get; set; }
         public string Secret { get; set; }
+        public string AccountSid { get; set; }
+        public string AuthToken { get; set; }
+
+
     }
 }

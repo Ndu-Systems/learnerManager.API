@@ -45,6 +45,7 @@ namespace LearnerManager.API
             services.ConfigureJWTAuthentication(Configuration);
             services.ConfigureServices();
             services.ConfigureUserIdentity();
+            services.ConfigureTwilio();
             services.AddMvc()
             .AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore)
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);

@@ -3,11 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LearnerManager.API.Contracts.Message;
 using LearnerManager.API.Contracts.RepositoryWrapper;
+using LearnerManager.API.Contracts.SMS;
+using LearnerManager.API.Contracts.Twillo;
 using LearnerManager.API.Contracts.Users;
 using LearnerManager.API.Domain;
 using LearnerManager.API.Domain.Entities;
 using LearnerManager.API.Domain.Repository.RepositoryWrapper;
+using LearnerManager.API.Services.Communications;
+using LearnerManager.API.Services.Message;
+using LearnerManager.API.Services.Sms;
 using LearnerManager.API.Services.Users;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -16,6 +22,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Twilio.Clients;
 
 namespace LearnerManager.API.Helpers
 {
@@ -49,6 +56,10 @@ namespace LearnerManager.API.Helpers
         public static void ConfigureServices(this IServiceCollection services)
         {
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<ITwilioService, TwilioService>();
+            services.AddTransient<ISmsService, SmsService>();
+            services.AddTransient<IMessageService, MessageService>();
+
         }
 
         public static void ConfigureSQLServer(this IServiceCollection services, IConfiguration config)
@@ -96,5 +107,10 @@ namespace LearnerManager.API.Helpers
                 .AddEntityFrameworkStores<RepositoryContext>();
         }
 
+        public static void ConfigureTwilio(this IServiceCollection services)
+        {
+            services.AddHttpClient<ITwilioRestClient, CustomTwilioClient>(client =>
+                client.DefaultRequestHeaders.Add("X-Custom-Header", "HttpClientFactory-Sample"));   
+        }
     }
 }
