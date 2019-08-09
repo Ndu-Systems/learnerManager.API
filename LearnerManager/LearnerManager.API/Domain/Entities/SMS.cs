@@ -13,7 +13,7 @@ namespace LearnerManager.API.Domain.Entities
         [Key]
         public Guid SMSId { get; set; }
         public string Subject { get; set; }
-        public string SentTo { get; set; }
+        public string SendTo { get; set; }
         [Required(ErrorMessage = "SMS body is required")]
         [StringLength(100, ErrorMessage = "SMS body cannot be longer then 100 characters")]
         public string Body { get; set; }

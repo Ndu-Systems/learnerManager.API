@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LearnerManager.API.Contracts.Asset;
+using LearnerManager.API.Contracts.Category;
 using LearnerManager.API.Contracts.Learner;
 using LearnerManager.API.Contracts.Message;
 using LearnerManager.API.Contracts.RepositoryWrapper;
 using LearnerManager.API.Contracts.SMS;
 using LearnerManager.API.Contracts.Users;
+using LearnerManager.API.Domain.Repository.Asset;
+using LearnerManager.API.Domain.Repository.Category;
 using LearnerManager.API.Domain.Repository.Learner;
 using LearnerManager.API.Domain.Repository.Message;
 using LearnerManager.API.Domain.Repository.SMS;
@@ -21,6 +25,8 @@ namespace LearnerManager.API.Domain.Repository.RepositoryWrapper
         private IMessageRepository _messageRepository;
         private ISMSRepository _smsRepository;
         private IUserRepository _userRepository;
+        private IAssetRepository _assetRepository;
+        private ICategoryRepository _categoryRepository;
         public RepositoryWrapper(RepositoryContext repositoryContext)
         {
             _repositoryContext = repositoryContext;
@@ -73,6 +79,29 @@ namespace LearnerManager.API.Domain.Repository.RepositoryWrapper
                 }
 
                 return _userRepository;
+            }
+        }
+
+        public IAssetRepository Asset
+        {
+            get
+            {
+                if (_assetRepository == null)
+                {
+                    _assetRepository = new AssetRepository(_repositoryContext);
+                }
+                return _assetRepository;
+            }
+        }
+        public ICategoryRepository Category
+        {
+            get
+            {
+                if (_categoryRepository == null)
+                {
+                    _categoryRepository = new CategoryRepository(_repositoryContext);
+                }
+                return _categoryRepository;
             }
         }
 

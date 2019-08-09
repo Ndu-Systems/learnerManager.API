@@ -22,5 +22,7 @@ namespace LearnerManager.API.Domain
         public DbSet<Learner> Learners { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<SMS> Smses { get; set; }
+        public DbSet<Asset> Assets { get; set; }
+        public DbSet<Category> Categories { get; set; }
     }
 }

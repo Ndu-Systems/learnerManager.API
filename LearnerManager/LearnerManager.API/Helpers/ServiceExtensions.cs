@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LearnerManager.API.Contracts.Asset;
+using LearnerManager.API.Contracts.Category;
 using LearnerManager.API.Contracts.Message;
 using LearnerManager.API.Contracts.RepositoryWrapper;
 using LearnerManager.API.Contracts.SMS;
@@ -11,6 +13,8 @@ using LearnerManager.API.Contracts.Users;
 using LearnerManager.API.Domain;
 using LearnerManager.API.Domain.Entities;
 using LearnerManager.API.Domain.Repository.RepositoryWrapper;
+using LearnerManager.API.Services.Asset;
+using LearnerManager.API.Services.Category;
 using LearnerManager.API.Services.Communications;
 using LearnerManager.API.Services.Message;
 using LearnerManager.API.Services.Sms;
@@ -59,7 +63,8 @@ namespace LearnerManager.API.Helpers
             services.AddTransient<ITwilioService, TwilioService>();
             services.AddTransient<ISmsService, SmsService>();
             services.AddTransient<IMessageService, MessageService>();
-
+            services.AddTransient<IAssetService, AssetService>();
+            services.AddTransient<ICategoryService, CategoryService>();
         }
 
         public static void ConfigureSQLServer(this IServiceCollection services, IConfiguration config)

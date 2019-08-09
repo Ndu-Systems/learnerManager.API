@@ -3,6 +3,5 @@
 namespace LearnerManager.API.Contracts.Message
 {
    public interface IMessageRepository: IRepositoryBase<Domain.Entities.Message>
-    {
-    }
+    {}
 }
