@@ -123,7 +123,8 @@ namespace LearnerManager.API.Services.Learner
                         Section = learner.Section,
                         StatusId = learner.StatusId
                     };
-                    learnerModel.ParentModels = new List<ParentModel>();
+                    learnerModel.Parents = new List<ParentModel>();
+
                     var learnerParents = _parentLearnerService.GetParentsForLearner(learner.LearnerId);
                     if (learnerParents.Count > 0)
                     {
@@ -132,7 +133,7 @@ namespace LearnerManager.API.Services.Learner
                             var parentModel = _parentService.GetById(parent.ParentId);
                             if (parentModel != null)
                             {
-                                learnerModel.ParentModels.Add(parentModel);
+                                learnerModel.Parents.Add(parentModel);
                                 learnerModel.Error = null;
                             }
                             else
@@ -182,7 +183,7 @@ namespace LearnerManager.API.Services.Learner
                         Section = learner.Section,
                         StatusId = learner.StatusId
                     };
-                    learnerModel.ParentModels = new List<ParentModel>();
+                    learnerModel.Parents = new List<ParentModel>();
                     foreach (var model in models)
                     {
                         // TODO Return parent data
@@ -197,7 +198,7 @@ namespace LearnerManager.API.Services.Learner
                             };
                             _repo.ParentLearner.Create(parentLearner.ToEntity());
                             _repo.Save();
-                            learnerModel.ParentModels.Add(parentModel);
+                            learnerModel.Parents.Add(parentModel);
                             learnerModel.Error = null;
                         }
                         else
