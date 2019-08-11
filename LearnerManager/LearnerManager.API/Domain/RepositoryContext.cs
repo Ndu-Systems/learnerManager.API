@@ -7,12 +7,6 @@ namespace LearnerManager.API.Domain
 {
     public class RepositoryContext: IdentityDbContext<User> 
     {
-
-        //public RepositoryContext()
-        //{
-
-        //}
-
         public RepositoryContext(DbContextOptions options)
             : base(options)
         {
@@ -25,5 +19,6 @@ namespace LearnerManager.API.Domain
         public DbSet<Asset> Assets { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Parent> Parents { get; set; }
+        public DbSet<ParentLearner> ParentLearners { get; set; }
     }
 }

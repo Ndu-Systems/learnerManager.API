@@ -20,9 +20,5 @@ namespace LearnerManager.API.Models
         public string Section { get; set; }
         public int StatusId { get; set; }
     }
-
-    public class LearnerDetailsModel : LearnerModel
-    {
-        public List<ParentModel> ParentModels { get; set; }
-    }
+   
 }

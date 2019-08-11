@@ -8,6 +8,7 @@ namespace LearnerManager.API.Domain.Entities
 {
     public class Asset
     {
+        [Key]
         public Guid AssetId { get; set; }
         [Required(ErrorMessage = "Description is required")]
         [StringLength(50, ErrorMessage = "SMS body cannot be longer then 50 characters, contact system administrator")]

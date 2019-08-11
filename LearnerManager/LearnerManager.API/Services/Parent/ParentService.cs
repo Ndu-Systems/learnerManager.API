@@ -71,6 +71,8 @@ namespace LearnerManager.API.Services.Parent
                     parentModel.FullName = model.FullName;
                     parentModel.Email = model.Email;
                     parentModel.Cellphone = model.Cellphone;
+                    parentModel.IDNumber = model.IDNumber;
+                    parentModel.Nationality = model.Nationality;
                     parentModel.Address = model.Address;
                     parentModel.Gender = model.Gender;
                     parentModel.StatusId = model.StatusId;

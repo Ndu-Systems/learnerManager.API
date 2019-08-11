@@ -58,6 +58,7 @@ namespace LearnerManager.API.Services.Category
                 var categoryModel = GetById(id);
                 if (categoryModel != null)
                 {
+                    // TODO: refactor this in extensions
                     categoryModel.CategoryId = model.CategoryId;
                     categoryModel.Description = model.Description;
                     categoryModel.StatusId = model.StatusId;
