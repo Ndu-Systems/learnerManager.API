@@ -15,6 +15,8 @@ namespace LearnerManager.API.Helpers
             {
                 ParentId = model.ParentId,
                 FullName = model.FullName,
+                Nationality = model.Nationality,
+                IDNumber = model.IDNumber,
                 Cellphone = model.Cellphone,
                 Email = model.Email,
                 Address = model.Address,
@@ -28,6 +30,8 @@ namespace LearnerManager.API.Helpers
             {
                 ParentId = model.ParentId,
                 FullName = model.FullName,
+                Nationality = model.Nationality,
+                IDNumber = model.IDNumber,
                 Cellphone = model.Cellphone,
                 Email = model.Email,
                 Address = model.Address,

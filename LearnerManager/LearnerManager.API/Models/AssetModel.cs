@@ -13,4 +13,9 @@ namespace LearnerManager.API.Models
         public string CategoryId { get; set; }
         public int StatusId { get; set; }
     }
+
+    public class AssetWithCategoryModel : AssetModel
+    {
+        public CategoryModel Category { get; set; }
+    }
 }

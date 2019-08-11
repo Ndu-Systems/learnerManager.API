@@ -81,5 +81,10 @@ namespace LearnerManager.API.Services.Asset
                 throw;
             }
         }
+
+        public AssetWithCategoryModel GetAssetWithCategoryModel(Guid id)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

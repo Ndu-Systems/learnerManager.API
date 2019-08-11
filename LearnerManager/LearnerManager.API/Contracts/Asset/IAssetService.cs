@@ -12,5 +12,6 @@ namespace LearnerManager.API.Contracts.Asset
         List<AssetModel> GetAll();
         AssetModel GetById(Guid id);
         AssetModel UpdateAsset(Guid id,AssetModel model);
+        AssetWithCategoryModel GetAssetWithCategoryModel(Guid id);
     }
 }

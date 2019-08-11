@@ -11,6 +11,8 @@ namespace LearnerManager.API.Models
     {
         public Guid ParentId { get; set; }
         public string FullName { get; set; }
+        public string Nationality { get; set; }
+        public string IDNumber { get; set; }
         public string Gender { get; set; }
         public string Cellphone { get; set; }
         public string Email { get; set; }
