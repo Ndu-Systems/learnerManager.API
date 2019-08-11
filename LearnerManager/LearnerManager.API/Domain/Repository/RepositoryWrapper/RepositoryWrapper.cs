@@ -7,6 +7,7 @@ using LearnerManager.API.Contracts.Category;
 using LearnerManager.API.Contracts.Learner;
 using LearnerManager.API.Contracts.Message;
 using LearnerManager.API.Contracts.Parent;
+using LearnerManager.API.Contracts.ParentLearner;
 using LearnerManager.API.Contracts.RepositoryWrapper;
 using LearnerManager.API.Contracts.SMS;
 using LearnerManager.API.Contracts.Users;
@@ -15,6 +16,7 @@ using LearnerManager.API.Domain.Repository.Category;
 using LearnerManager.API.Domain.Repository.Learner;
 using LearnerManager.API.Domain.Repository.Message;
 using LearnerManager.API.Domain.Repository.Parent;
+using LearnerManager.API.Domain.Repository.ParentLearner;
 using LearnerManager.API.Domain.Repository.SMS;
 using LearnerManager.API.Domain.Repository.Users;
 
@@ -30,6 +32,7 @@ namespace LearnerManager.API.Domain.Repository.RepositoryWrapper
         private IAssetRepository _assetRepository;
         private ICategoryRepository _categoryRepository;
         private IParentRepository _parentRepository;
+        private IParentLearnerRepository _parentLearnerRepository;
         public RepositoryWrapper(RepositoryContext repositoryContext)
         {
             _repositoryContext = repositoryContext;
@@ -117,6 +120,17 @@ namespace LearnerManager.API.Domain.Repository.RepositoryWrapper
                     _parentRepository = new ParentRepository(_repositoryContext);
                 }
                 return _parentRepository;
+            }
+        }
+
+        public IParentLearnerRepository ParentLearner {
+            get
+            {
+                if (_parentLearnerRepository == null)
+                {
+                    _parentLearnerRepository = new ParentLearnerRepository(_repositoryContext);
+                }
+                return _parentLearnerRepository;
             }
         }
 

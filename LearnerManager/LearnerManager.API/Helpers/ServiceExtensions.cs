@@ -8,6 +8,7 @@ using LearnerManager.API.Contracts.Category;
 using LearnerManager.API.Contracts.Learner;
 using LearnerManager.API.Contracts.Message;
 using LearnerManager.API.Contracts.Parent;
+using LearnerManager.API.Contracts.ParentLearner;
 using LearnerManager.API.Contracts.RepositoryWrapper;
 using LearnerManager.API.Contracts.SMS;
 using LearnerManager.API.Contracts.Twillo;
@@ -21,6 +22,7 @@ using LearnerManager.API.Services.Communications;
 using LearnerManager.API.Services.Learner;
 using LearnerManager.API.Services.Message;
 using LearnerManager.API.Services.Parent;
+using LearnerManager.API.Services.ParentLearner;
 using LearnerManager.API.Services.Sms;
 using LearnerManager.API.Services.Users;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -71,6 +73,7 @@ namespace LearnerManager.API.Helpers
             services.AddTransient<ICategoryService, CategoryService>();
             services.AddTransient<IParentService, ParentService>();
             services.AddTransient<ILearnerService, LearnerService>();
+            services.AddTransient<IParentLearnerService, ParentLearnerService>();
         }
 
         public static void ConfigureSQLServer(this IServiceCollection services, IConfiguration config)

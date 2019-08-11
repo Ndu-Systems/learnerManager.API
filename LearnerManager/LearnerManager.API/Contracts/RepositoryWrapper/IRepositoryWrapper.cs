@@ -7,6 +7,7 @@ using LearnerManager.API.Contracts.Category;
 using LearnerManager.API.Contracts.Learner;
 using LearnerManager.API.Contracts.Message;
 using LearnerManager.API.Contracts.Parent;
+using LearnerManager.API.Contracts.ParentLearner;
 using LearnerManager.API.Contracts.SMS;
 using LearnerManager.API.Contracts.Users;
 
@@ -21,6 +22,8 @@ namespace LearnerManager.API.Contracts.RepositoryWrapper
         IAssetRepository Asset { get; }
         ICategoryRepository Category { get; }
         IParentRepository Parent { get; }
+
+        IParentLearnerRepository ParentLearner { get; }
         void Save();
     }
 }

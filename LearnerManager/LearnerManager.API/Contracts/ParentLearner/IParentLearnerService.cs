@@ -8,6 +8,8 @@ namespace LearnerManager.API.Contracts.ParentLearner
 {
     public interface IParentLearnerService
     {
-        ParentLearnerModel AddRelationShip(Guid parentId, Guid LearnerId);
+        ParentLearnerModel AddRelationShip(Guid parentId, Guid learnerId);
+        List<ParentLearnerModel> GetParentsForLearner(Guid learnerId);
+        List<ParentLearnerModel> GetLearnersForParent(Guid parentId);
     }
 }

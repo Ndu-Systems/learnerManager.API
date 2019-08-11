@@ -10,9 +10,9 @@ namespace LearnerManager.API.Contracts.Learner
     {
         List<LearnerModel> GetAllLearners();
         LearnerModel GetById(Guid id);
-        GetParentsForLearnerModel GetParentsForLearner(List<Guid> parentIds, Guid learnerId);
+        GetParentsForLearnerModel GetParentsForLearner(Guid learnerId);
+        GetParentsForLearnerModel AddParentsForLearner(List<ParentLearnerModel> models, Guid learnerId);
         LearnerModel CreateLearner(LearnerModel model);
-
         LearnerModel UpdateLearner(Guid id,LearnerModel model);
 
     }
