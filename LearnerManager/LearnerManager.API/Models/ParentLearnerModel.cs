@@ -18,12 +18,12 @@ namespace LearnerManager.API.Models
     public class GetLearnersForParentModel : ParentModel
     {
         public List<LearnerModel> Learners { get; set; }
-        public string Error { get; set; }
+        public List<string> Errors { get; set; }
     }
 
     public class GetParentsForLearnerModel : LearnerModel
     {
         public List<ParentModel> Parents { get; set; }
-        public string Error { get; set; }
+        public List<string> Errors { get; set; }
     }
 }

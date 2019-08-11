@@ -12,5 +12,6 @@ namespace LearnerManager.API.Contracts.Parent
         List<ParentModel> GetAllPArents();
         ParentModel GetById(Guid id);
         ParentModel UpdateParent(Guid id, ParentModel model);
+ 
     }
 }

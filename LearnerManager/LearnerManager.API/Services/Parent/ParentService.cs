@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LearnerManager.API.Contracts.Learner;
 using LearnerManager.API.Contracts.Parent;
+using LearnerManager.API.Contracts.ParentLearner;
 using LearnerManager.API.Contracts.RepositoryWrapper;
 using LearnerManager.API.Helpers;
 using LearnerManager.API.Models;
@@ -12,7 +14,7 @@ namespace LearnerManager.API.Services.Parent
     public class ParentService: IParentService
     {
         private readonly IRepositoryWrapper _repo;
-
+ 
         public ParentService(IRepositoryWrapper repo)
         {
             _repo = repo;
@@ -91,5 +93,6 @@ namespace LearnerManager.API.Services.Parent
                 throw;
             }
         }
+         
     }
 }

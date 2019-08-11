@@ -51,16 +51,16 @@ namespace LearnerManager.API.Controllers
             return NotFound();
         }
         [HttpGet("{id}/parents")]
-        public IActionResult GetParentsToLearner(Guid id)
+        public IActionResult GetParentsForLearner(Guid id)
         {
-            var result = _learnerService.GetParentsForLearner(id);
+            var result = _parentLearnerService.GetParentsForLearner(id);
             if (result == null) return BadRequest();
             return Ok(result);
         }
         [HttpPost("{id}/parents")]
-        public IActionResult LinkParentsToLearner([FromBody]List<ParentLearnerModel> model, Guid id)
+        public IActionResult LinkParentsToLearner([FromBody]List<ParentLearnerModel> models, Guid id)
         {
-            var result = _learnerService.AddParentsForLearner(model, id);
+            var result = _parentLearnerService.AddParentsForLearner(models, id);
             if (result == null) return BadRequest();
             return Ok(result);
         }

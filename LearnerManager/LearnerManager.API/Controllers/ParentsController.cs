@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LearnerManager.API.Contracts.Parent;
+using LearnerManager.API.Contracts.ParentLearner;
 using LearnerManager.API.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,9 +16,11 @@ namespace LearnerManager.API.Controllers
     public class ParentsController : ControllerBase
     {
         private readonly IParentService _parentService;
-        public ParentsController(IParentService parentService)
+        private readonly IParentLearnerService _parentLearnerService;
+        public ParentsController(IParentService parentService, IParentLearnerService parentLearnerService)
         {
             _parentService = parentService;
+            _parentLearnerService = parentLearnerService;
         }
         // GET: api/parents
         [HttpGet]
@@ -53,6 +56,22 @@ namespace LearnerManager.API.Controllers
             {
                 return null;
             }
+        }
+
+        [HttpGet("{id}/learners")]
+        public IActionResult GetLearnersForParent(Guid id)
+        {
+            var result = _parentLearnerService.GetLearnersForParent(id);
+            if (result == null) return BadRequest();
+            return Ok(result);
+        }
+
+        [HttpPost("{id}/learners")]
+        public IActionResult LinkLearnersToParent([FromBody] List<ParentLearnerModel> models, Guid id)
+        {
+            var result = _parentLearnerService.AddLearnersForParent(models, id);
+            if (result == null) return BadRequest();
+            return Ok(result);
         }
     }
 }
