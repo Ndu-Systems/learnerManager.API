@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LearnerManager.API.Contracts.Asset;
+using LearnerManager.API.Contracts.AssetCategory;
 using LearnerManager.API.Contracts.Category;
 using LearnerManager.API.Contracts.Learner;
 using LearnerManager.API.Contracts.Message;
@@ -22,8 +23,8 @@ namespace LearnerManager.API.Contracts.RepositoryWrapper
         IAssetRepository Asset { get; }
         ICategoryRepository Category { get; }
         IParentRepository Parent { get; }
-
         IParentLearnerRepository ParentLearner { get; }
+        IAssetCategoryRepository AssetCategory { get; }
         void Save();
     }
 }

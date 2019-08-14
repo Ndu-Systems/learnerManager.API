@@ -8,7 +8,7 @@ namespace LearnerManager.API.Contracts.ParentLearner
 {
     public interface IParentLearnerService
     {
-        ParentLearnerModel AddRelationShip(Guid parentId, Guid learnerId);
+  
         GetParentsForLearnerModel GetParentsForLearner(Guid learnerId);
         GetParentsForLearnerModel AddParentsForLearner(List<ParentLearnerModel> models, Guid id);
         GetLearnersForParentModel GetLearnersForParent(Guid parentId);

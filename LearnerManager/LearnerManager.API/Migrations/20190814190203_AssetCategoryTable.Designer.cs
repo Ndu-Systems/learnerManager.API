@@ -4,14 +4,16 @@ using LearnerManager.API.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace LearnerManager.API.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    partial class RepositoryContextModelSnapshot : ModelSnapshot
+    [Migration("20190814190203_AssetCategoryTable")]
+    partial class AssetCategoryTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,20 +39,6 @@ namespace LearnerManager.API.Migrations
                     b.HasKey("AssetId");
 
                     b.ToTable("Assets");
-                });
-
-            modelBuilder.Entity("LearnerManager.API.Domain.Entities.AssetCategory", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<Guid>("AssetId");
-
-                    b.Property<Guid>("CategoryId");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AssetCategories");
                 });
 
             modelBuilder.Entity("LearnerManager.API.Domain.Entities.Category", b =>

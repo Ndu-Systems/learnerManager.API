@@ -6,11 +6,10 @@ using System.Threading.Tasks;
 
 namespace LearnerManager.API.Domain.Entities
 {
-    public class Category
+    public class AssetCategory
     {
-        [Key]
-        public Guid CategoryId { get; set; }
-        public string Description { get; set; }
-        public int StatusId { get; set; }
+        [Key] public Guid Id { get; set; }
+        [Required] public Guid AssetId { get; set; }
+        [Required] public Guid CategoryId { get; set; }
     }
 }

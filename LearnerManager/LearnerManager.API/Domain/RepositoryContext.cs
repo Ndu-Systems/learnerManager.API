@@ -20,5 +20,6 @@ namespace LearnerManager.API.Domain
         public DbSet<Category> Categories { get; set; }
         public DbSet<Parent> Parents { get; set; }
         public DbSet<ParentLearner> ParentLearners { get; set; }
+        public DbSet<AssetCategory> AssetCategories { get; set; }
     }
 }

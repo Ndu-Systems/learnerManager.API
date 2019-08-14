@@ -54,7 +54,7 @@ namespace LearnerManager.API.Controllers
         public IActionResult GetParentsForLearner(Guid id)
         {
             var result = _parentLearnerService.GetParentsForLearner(id);
-            if (result == null) return BadRequest();
+            if (result == null) return NotFound();
             return Ok(result);
         }
         [HttpPost("{id}/parents")]

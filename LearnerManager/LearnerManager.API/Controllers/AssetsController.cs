@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using LearnerManager.API.Contracts.Asset;
+using LearnerManager.API.Contracts.AssetCategory;
 using LearnerManager.API.Models;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,9 +16,11 @@ namespace LearnerManager.API.Controllers
     public class AssetsController : ControllerBase
     {
         private readonly IAssetService _assetService;
-        public AssetsController(IAssetService assetService)
+        private readonly IAssetCategoryService _assetCategoryService;
+        public AssetsController(IAssetService assetService, IAssetCategoryService assetCategoryService)
         {
             _assetService = assetService;
+            _assetCategoryService = assetCategoryService;
         }
         // GET: api/assets
         [HttpGet]
@@ -55,6 +58,21 @@ namespace LearnerManager.API.Controllers
             }
         }
 
+        [HttpGet("{id}/categories")]
+        public IActionResult GetCategoriesForAsset(Guid id)
+        {
+            var result = _assetCategoryService.GetCategoriesForAsset(id);
+            if (result == null) return NotFound();
+            return Ok(result);
+        }
+
+        [HttpPost("{id}/categories")]
+        public IActionResult LinkCategoryForAsset([FromBody]List<AssetCategoryModel> models, Guid id)
+        {
+            var result = _assetCategoryService.AddCategoriesForAsset(models, id);
+            if (result == null) return BadRequest();
+            return Ok(result);
+        }
       
     }
 }

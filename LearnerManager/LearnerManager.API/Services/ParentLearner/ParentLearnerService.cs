@@ -24,7 +24,7 @@ namespace LearnerManager.API.Services.ParentLearner
             _learnerService = learnerService;
             _parentService = parentService;
         }
-        public ParentLearnerModel AddRelationShip(Guid parentId, Guid learnerId)
+        private ParentLearnerModel AddRelationShip(Guid parentId, Guid learnerId)
         {
             try
             {
@@ -138,13 +138,15 @@ namespace LearnerManager.API.Services.ParentLearner
                             }
                             else
                             {
-                                learnerModel.Errors.Add("Parent entity: Id= "+parentModel.ParentId+" already exists");
+                                learnerModel.Errors
+                                    .Add("Parent entity: Id= "+parentModel.ParentId+" already exists");
                             }
                            
                         }
                         else
                         {
-                            learnerModel.Errors.Add("Could not find parent with entity: Id= "+ model.ParentId);
+                            learnerModel.Errors
+                                .Add("Could not find parent with entity: Id= "+ model.ParentId);
                         }
                     }
                     return learnerModel;
