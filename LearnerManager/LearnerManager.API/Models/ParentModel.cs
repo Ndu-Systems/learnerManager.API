@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace LearnerManager.API.Models
 {
  
-    public class ParentModel
+    public class ParentModel : EntityBaseModel
     {
         public Guid ParentId { get; set; }
         public string FullName { get; set; }

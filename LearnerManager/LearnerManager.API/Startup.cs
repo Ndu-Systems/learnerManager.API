@@ -18,10 +18,6 @@ namespace LearnerManager.API
 {
     public class Startup
     {
-        //public Startup(IConfiguration configuration)
-        //{
-        //    Configuration = configuration;
-        //}
         public Startup(IHostingEnvironment env)
         {
             var builder = new ConfigurationBuilder()
@@ -32,42 +28,44 @@ namespace LearnerManager.API
 
             Configuration = builder.Build();
         }
-        public IConfiguration Configuration { get; }
+
+        IConfigurationRoot Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            services.AddSingleton(Configuration);
             services.ConfigureCors();
             services.ConfigureIISIntegration();
             services.ConfigureRepositoryWrapper();
-            services.ConfigureSQLServer(Configuration);
+            services.ConfigureSqlServer(Configuration);
             services.ConfigureJWTAuthentication(Configuration);
             services.ConfigureServices();
             services.ConfigureUserIdentity();
             services.ConfigureTwilio();
+            services.AddTransient<DBInitializer>();
             services.AddMvc()
             .AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore)
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, DBInitializer seeder)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseCors("CorsPolicy");
-
-            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            else
             {
-                ForwardedHeaders = ForwardedHeaders.All
-            });
+                app.UseHsts();
+            }
 
+            app.UseCors("CorsPolicy");
             app.UseStaticFiles();
-            app.UseAuthentication();
+             app.UseAuthentication();
             app.UseMvc();
+            seeder.Seed().Wait();
         }
     }
 }

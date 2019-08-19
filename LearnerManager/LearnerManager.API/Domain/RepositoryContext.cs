@@ -5,13 +5,16 @@ using Microsoft.Extensions.Configuration;
 
 namespace LearnerManager.API.Domain
 {
-    public class RepositoryContext: IdentityDbContext<User> 
+    public class RepositoryContext: IdentityDbContext<User>
     {
-        public RepositoryContext(DbContextOptions options)
+        private IConfigurationRoot _config;
+
+        public RepositoryContext(DbContextOptions<RepositoryContext> options, IConfigurationRoot config)
             : base(options)
         {
-           
+            _config = config;
         }
+
 
         public DbSet<Learner> Learners { get; set; }
         public DbSet<Message> Messages { get; set; }
@@ -21,5 +24,12 @@ namespace LearnerManager.API.Domain
         public DbSet<Parent> Parents { get; set; }
         public DbSet<ParentLearner> ParentLearners { get; set; }
         public DbSet<AssetCategory> AssetCategories { get; set; }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+            optionsBuilder.UseSqlServer(_config["Data:ConnectionString"]);
+        }
+
     }
 }

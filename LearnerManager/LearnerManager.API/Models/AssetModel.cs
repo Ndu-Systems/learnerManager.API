@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LearnerManager.API.Models
 {
-    public class AssetModel
+    public class AssetModel : EntityBaseModel
     {
         public Guid AssetId { get; set; }
         public string Description { get; set; }

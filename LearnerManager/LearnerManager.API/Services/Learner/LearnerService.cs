@@ -51,6 +51,7 @@ namespace LearnerManager.API.Services.Learner
             try
             {
                 model.LearnerId = Guid.NewGuid();
+            
                 model.StatusId = 1;
                 _repo.Learner.Create(model.ToEntity());
                 _repo.Save();

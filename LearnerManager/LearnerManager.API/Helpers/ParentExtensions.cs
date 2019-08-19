@@ -21,6 +21,10 @@ namespace LearnerManager.API.Helpers
                 Email = model.Email,
                 Address = model.Address,
                 Gender = model.Gender,
+                CreateUserId = model.CreateUserId,
+                CreateDate = model.CreateDate,
+                ModifyUserId = model.ModifyUserId,
+                ModifyDate = model.ModifyDate,
                 StatusId = model.StatusId
             };
         }
@@ -36,6 +40,10 @@ namespace LearnerManager.API.Helpers
                 Email = model.Email,
                 Address = model.Address,
                 Gender = model.Gender,
+                CreateUserId = model.CreateUserId,
+                CreateDate = model.CreateDate,
+                ModifyUserId = model.ModifyUserId,
+                ModifyDate = model.ModifyDate,
                 StatusId = model.StatusId
             };
         }

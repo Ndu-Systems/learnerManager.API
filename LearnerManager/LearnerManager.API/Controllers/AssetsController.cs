@@ -4,23 +4,31 @@ using System.Linq;
 using System.Threading.Tasks;
 using LearnerManager.API.Contracts.Asset;
 using LearnerManager.API.Contracts.AssetCategory;
+using LearnerManager.API.Domain.Entities;
 using LearnerManager.API.Models;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
 namespace LearnerManager.API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class AssetsController : ControllerBase
     {
         private readonly IAssetService _assetService;
         private readonly IAssetCategoryService _assetCategoryService;
-        public AssetsController(IAssetService assetService, IAssetCategoryService assetCategoryService)
+        private readonly UserManager<User> _userManager;
+        public AssetsController(IAssetService assetService, 
+            IAssetCategoryService assetCategoryService,
+            UserManager<User> userManager)
         {
             _assetService = assetService;
             _assetCategoryService = assetCategoryService;
+            _userManager = userManager;
         }
         // GET: api/assets
         [HttpGet]
@@ -38,23 +46,54 @@ namespace LearnerManager.API.Controllers
 
         // POST api/assets
         [HttpPost]
-        public IActionResult Post([FromBody]AssetModel model)
+        public async Task<IActionResult> Post([FromBody]AssetModel model)
         {
-            return Ok(_assetService.CreateAsset(model));
+            try
+            {
+                var currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
+                if (currentUser != null)
+                {
+                    model.CreateUserId = Guid.Parse(currentUser.Id);
+                    model.CreateDate = DateTime.Now;
+                    model.ModifyUserId = Guid.Parse(currentUser.Id);
+                    model.ModifyDate = DateTime.Now;
+                    return Ok(_assetService.CreateAsset(model));
+                }
+                return BadRequest("An error has occurred, please contact system administrator!");
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
 
         // PUT api/<controller>/5
         [HttpPut("{id}")]
-        public IActionResult Put(Guid id, [FromBody]AssetModel model)
+        public async Task<IActionResult> Put(Guid id, [FromBody]AssetModel model)
         {
-            var result = _assetService.UpdateAsset(id, model);
-            if (result != null)
+            try
             {
-                return Ok(result);
+                var currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
+                if (currentUser != null)
+                {
+                    model.ModifyUserId = Guid.Parse(currentUser.Id);
+                    model.ModifyDate = DateTime.Now;
+                    var result = _assetService.UpdateAsset(id, model);
+                    if (result != null)
+                    {
+                        return Ok(result);
+                    }
+                    else
+                    {
+                        return NotFound();
+                    }
+                }
+
+                return BadRequest("An error has occurred, please contact system administrator!");
             }
-            else
+            catch (Exception e)
             {
-                return NotFound();
+                throw new Exception(e.Message);
             }
         }
 
@@ -67,11 +106,27 @@ namespace LearnerManager.API.Controllers
         }
 
         [HttpPost("{id}/categories")]
-        public IActionResult LinkCategoryForAsset([FromBody]List<AssetCategoryModel> models, Guid id)
+        public async Task<IActionResult> LinkCategoryForAsset([FromBody]List<AssetCategoryModel> models, Guid id)
         {
-            var result = _assetCategoryService.AddCategoriesForAsset(models, id);
-            if (result == null) return BadRequest();
-            return Ok(result);
+            try
+            {
+                var currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
+                foreach (var model in models)
+                {
+                    model.CreateUserId = Guid.Parse(currentUser.Id);
+                    model.CreateDate = DateTime.Now;
+                    model.ModifyUserId = Guid.Parse(currentUser.Id);
+                    model.ModifyDate = DateTime.Now;
+                }
+                var result = _assetCategoryService.AddAssetsForCategory(models, id);
+                if (result == null) return BadRequest("An error has occurred, please contact system administrator!");
+                return Ok(result);
+
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
       
     }

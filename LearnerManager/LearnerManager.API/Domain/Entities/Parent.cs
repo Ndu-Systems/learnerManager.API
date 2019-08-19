@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LearnerManager.API.Domain.Entities
 {
-    public class Parent
+    public class Parent: EntityBase
     {
         public Guid ParentId { get; set; }
         public string FullName { get; set; }
@@ -21,6 +21,6 @@ namespace LearnerManager.API.Domain.Entities
         public string Cellphone { get; set; }
         public string Email { get; set; }
         public string Address { get; set; }
-        public int StatusId  { get; set; }
+ 
     }
 }

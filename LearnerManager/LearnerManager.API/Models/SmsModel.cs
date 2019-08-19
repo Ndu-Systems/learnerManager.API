@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LearnerManager.API.Models
 {
-    public class SmsModel
+    public class SmsModel : EntityBaseModel
     {
         [Key]
         public Guid SMSId { get; set; }
@@ -16,6 +16,5 @@ namespace LearnerManager.API.Models
         [Required(ErrorMessage = "SMS body is required")]
         [StringLength(100, ErrorMessage = "SMS body cannot be longer then 100 characters")]
         public string Body { get; set; }
-        public int StatusId { get; set; }
-    }
+     }
 }

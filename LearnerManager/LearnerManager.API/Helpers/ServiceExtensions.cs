@@ -81,17 +81,9 @@ namespace LearnerManager.API.Helpers
 
         }
 
-        public static void ConfigureSQLServer(this IServiceCollection services, IConfiguration config)
+        public static void ConfigureSqlServer(this IServiceCollection services, IConfiguration config)
         {
-            var _appSettingSection = config.GetSection("sqlserverconnection");
-            services.Configure<AppSettings>(_appSettingSection);
-            var _appSetting = _appSettingSection.Get<AppSettings>();
-            var _connectionString = _appSetting.connectionString;
-            if (_connectionString != null)
-                services.AddDbContext<RepositoryContext>(
-                    options => options.UseSqlServer(_connectionString),
-                    ServiceLifetime.Scoped
-                );
+            services.AddDbContext<RepositoryContext>(ServiceLifetime.Scoped);
         }
 
         public static void ConfigureJWTAuthentication(this IServiceCollection services, IConfiguration config)

@@ -4,22 +4,32 @@ using System.Linq;
 using System.Threading.Tasks;
 using LearnerManager.API.Contracts.Learner;
 using LearnerManager.API.Contracts.ParentLearner;
+using LearnerManager.API.Domain.Entities;
+using LearnerManager.API.Helpers;
 using LearnerManager.API.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LearnerManager.API.Controllers
 {
+    [Authorize]
     [Route("api/[controller]")]
     [ApiController]
     public class LearnersController : ControllerBase
     {
         private readonly ILearnerService _learnerService;
         private readonly IParentLearnerService _parentLearnerService;
-        public LearnersController(ILearnerService learnerService, IParentLearnerService parentLearnerService)
+        private readonly UserManager<User> _userManager;
+
+        public LearnersController(ILearnerService learnerService, 
+            IParentLearnerService parentLearnerService,
+            UserManager<User> userManager)
         {
             _learnerService = learnerService;
             _parentLearnerService = parentLearnerService;
+            _userManager = userManager;
         }
 
         [HttpGet]
@@ -35,20 +45,51 @@ namespace LearnerManager.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody] LearnerModel model)
+        public async Task<IActionResult> Post([FromBody] LearnerModel model)
         {
-            return Ok(_learnerService.CreateLearner(model));
+            try
+            {
+                var currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
+                if (currentUser != null)
+                {
+                    model.CreateUserId = Guid.Parse(currentUser.Id);
+                    model.CreateDate = DateTime.Now;
+                    model.ModifyUserId = Guid.Parse(currentUser.Id);
+                    model.ModifyDate = DateTime.Now;
+                    return Ok(_learnerService.CreateLearner(model));
+                }
+                return BadRequest("An error has occurred, please contact system administrator!");
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
 
         [HttpPut("{id}")]
-        public IActionResult Put(Guid id, [FromBody] LearnerModel model)
+        public async Task<IActionResult> Put(Guid id, [FromBody] LearnerModel model)
         {
-            var result = _learnerService.UpdateLearner(id, model);
-            if (result != null)
+           
+            try
             {
-                return Ok(result);
+               
+                var currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
+                if (currentUser != null)
+                {
+                    model.ModifyUserId = Guid.Parse(currentUser.Id);
+                    model.ModifyDate = DateTime.Now;
+                    var result = _learnerService.UpdateLearner(id, model);
+                    if (result != null)
+                    {
+                        return Ok(result);
+                    }
+                }
+                return BadRequest("An error has occurred, please contact system administrator!");
             }
-            return NotFound();
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
         [HttpGet("{id}/parents")]
         public IActionResult GetParentsForLearner(Guid id)
@@ -58,11 +99,27 @@ namespace LearnerManager.API.Controllers
             return Ok(result);
         }
         [HttpPost("{id}/parents")]
-        public IActionResult LinkParentsToLearner([FromBody]List<ParentLearnerModel> models, Guid id)
+        public async Task<IActionResult> LinkParentsToLearner([FromBody]List<ParentLearnerModel> models, Guid id)
         {
-            var result = _parentLearnerService.AddParentsForLearner(models, id);
-            if (result == null) return BadRequest();
-            return Ok(result);
+            try
+            {
+                var currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
+                foreach (var model in models)
+                {
+                    model.CreateUserId = Guid.Parse(currentUser.Id);
+                    model.CreateDate = DateTime.Now;
+                    model.ModifyUserId = Guid.Parse(currentUser.Id);
+                    model.ModifyDate = DateTime.Now;
+                }
+                var result = _parentLearnerService.AddParentsForLearner(models, id);
+                if (result == null) return BadRequest("An error has occurred, please contact system administrator!");
+                return Ok(result);
+
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
         }
     }
 }

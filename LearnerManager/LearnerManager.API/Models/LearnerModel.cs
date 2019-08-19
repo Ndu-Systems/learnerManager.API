@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace LearnerManager.API.Models
 {
-    public class LearnerModel
+    public class LearnerModel : EntityBaseModel
     {
  
         public Guid LearnerId { get; set; }

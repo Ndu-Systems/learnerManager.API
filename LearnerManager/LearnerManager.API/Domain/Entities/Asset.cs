@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LearnerManager.API.Domain.Entities
 {
-    public class Asset
+    public class Asset: EntityBase
     {
         [Key]
         public Guid AssetId { get; set; }
@@ -16,6 +16,5 @@ namespace LearnerManager.API.Domain.Entities
         [Required(ErrorMessage = "Category is required")]
         [StringLength(50, ErrorMessage = "Category is required, contact system administrator")]
         public string CategoryId { get; set; }
-        public int StatusId { get; set; }
     }
 }

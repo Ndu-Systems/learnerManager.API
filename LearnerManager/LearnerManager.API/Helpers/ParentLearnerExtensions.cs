@@ -15,7 +15,12 @@ namespace LearnerManager.API.Helpers
             {
                 Id = model.Id,
                 LearnerId = model.LearnerId,
-                ParentId = model.ParentId
+                ParentId = model.ParentId,
+                CreateUserId = model.CreateUserId,
+                CreateDate = model.CreateDate,
+                ModifyUserId = model.ModifyUserId,
+                ModifyDate = model.ModifyDate,
+                StatusId = model.StatusId
             };
         }
         public static ParentLearnerModel ToModel(this ParentLearner model)
@@ -24,7 +29,12 @@ namespace LearnerManager.API.Helpers
             {
                 Id = model.Id,
                 LearnerId = model.LearnerId,
-                ParentId = model.ParentId
+                ParentId = model.ParentId,
+                CreateUserId = model.CreateUserId,
+                CreateDate = model.CreateDate,
+                ModifyUserId = model.ModifyUserId,
+                ModifyDate = model.ModifyDate,
+                StatusId = model.StatusId
             };
         }
     }

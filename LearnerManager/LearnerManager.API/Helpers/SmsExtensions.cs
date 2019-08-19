@@ -17,6 +17,10 @@ namespace LearnerManager.API.Helpers
                 Subject = model.Subject,
                 SentTo = model.SentTo,
                 Body = model.Body,
+                CreateUserId = model.CreateUserId,
+                CreateDate = model.CreateDate,
+                ModifyUserId = model.ModifyUserId,
+                ModifyDate = model.ModifyDate,
                 StatusId = model.StatusId
             };
         }
@@ -28,6 +32,10 @@ namespace LearnerManager.API.Helpers
                 Subject = model.Subject,
                 SentTo = model.SentTo,
                 Body = model.Body,
+                CreateUserId = model.CreateUserId,
+                CreateDate = model.CreateDate,
+                ModifyUserId = model.ModifyUserId,
+                ModifyDate = model.ModifyDate,
                 StatusId = model.StatusId
             };
         }

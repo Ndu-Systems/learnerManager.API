@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LearnerManager.API.Models
 {
-    public class ParentLearnerModel
+    public class ParentLearnerModel : EntityBaseModel
     {
         public Guid Id { get; set; }
         [Required] public Guid LearnerId { get; set; }

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace LearnerManager.API.Models
 {
-    public class MessageModel
+    public class MessageModel: EntityBaseModel
     {
         public Guid MessageId { get; set; }
         public string MessageType { get; set; }

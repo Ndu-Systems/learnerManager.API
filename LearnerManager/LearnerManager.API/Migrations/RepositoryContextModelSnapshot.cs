@@ -28,9 +28,17 @@ namespace LearnerManager.API.Migrations
                         .IsRequired()
                         .HasMaxLength(50);
 
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<Guid>("CreateUserId");
+
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasMaxLength(50);
+
+                    b.Property<DateTime>("ModifyDate");
+
+                    b.Property<Guid>("ModifyUserId");
 
                     b.Property<int>("StatusId");
 
@@ -48,6 +56,16 @@ namespace LearnerManager.API.Migrations
 
                     b.Property<Guid>("CategoryId");
 
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<Guid>("CreateUserId");
+
+                    b.Property<DateTime>("ModifyDate");
+
+                    b.Property<Guid>("ModifyUserId");
+
+                    b.Property<int>("StatusId");
+
                     b.HasKey("Id");
 
                     b.ToTable("AssetCategories");
@@ -58,7 +76,15 @@ namespace LearnerManager.API.Migrations
                     b.Property<Guid>("CategoryId")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<Guid>("CreateUserId");
+
                     b.Property<string>("Description");
+
+                    b.Property<DateTime>("ModifyDate");
+
+                    b.Property<Guid>("ModifyUserId");
 
                     b.Property<int>("StatusId");
 
@@ -71,6 +97,10 @@ namespace LearnerManager.API.Migrations
                 {
                     b.Property<Guid>("LearnerId")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<Guid>("CreateUserId");
 
                     b.Property<string>("DateOfBirth");
 
@@ -85,6 +115,10 @@ namespace LearnerManager.API.Migrations
                         .HasMaxLength(15);
 
                     b.Property<string>("LastName");
+
+                    b.Property<DateTime>("ModifyDate");
+
+                    b.Property<Guid>("ModifyUserId");
 
                     b.Property<string>("Race");
 
@@ -104,9 +138,19 @@ namespace LearnerManager.API.Migrations
                     b.Property<Guid>("MessageId")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<Guid>("CreateUserId");
+
                     b.Property<string>("MessageBody");
 
                     b.Property<string>("MessageType");
+
+                    b.Property<DateTime>("ModifyDate");
+
+                    b.Property<Guid>("ModifyUserId");
+
+                    b.Property<int>("StatusId");
 
                     b.HasKey("MessageId");
 
@@ -124,6 +168,10 @@ namespace LearnerManager.API.Migrations
                         .IsRequired()
                         .HasMaxLength(15);
 
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<Guid>("CreateUserId");
+
                     b.Property<string>("Email");
 
                     b.Property<string>("FullName");
@@ -133,6 +181,10 @@ namespace LearnerManager.API.Migrations
                     b.Property<string>("IDNumber")
                         .IsRequired()
                         .HasMaxLength(15);
+
+                    b.Property<DateTime>("ModifyDate");
+
+                    b.Property<Guid>("ModifyUserId");
 
                     b.Property<string>("Nationality");
 
@@ -148,9 +200,19 @@ namespace LearnerManager.API.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<Guid>("CreateUserId");
+
                     b.Property<Guid>("LearnerId");
 
+                    b.Property<DateTime>("ModifyDate");
+
+                    b.Property<Guid>("ModifyUserId");
+
                     b.Property<Guid>("ParentId");
+
+                    b.Property<int>("StatusId");
 
                     b.HasKey("Id");
 
@@ -165,6 +227,14 @@ namespace LearnerManager.API.Migrations
                     b.Property<string>("Body")
                         .IsRequired()
                         .HasMaxLength(100);
+
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<Guid>("CreateUserId");
+
+                    b.Property<DateTime>("ModifyDate");
+
+                    b.Property<Guid>("ModifyUserId");
 
                     b.Property<string>("SentTo");
 
@@ -187,6 +257,10 @@ namespace LearnerManager.API.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<Guid>("CreateUserId");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256);
 
@@ -195,6 +269,10 @@ namespace LearnerManager.API.Migrations
                     b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
+
+                    b.Property<DateTime>("ModifyDate");
+
+                    b.Property<Guid>("ModifyUserId");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256);
@@ -213,6 +291,8 @@ namespace LearnerManager.API.Migrations
                     b.Property<string>("School");
 
                     b.Property<string>("SecurityStamp");
+
+                    b.Property<int>("StatusId");
 
                     b.Property<bool>("TwoFactorEnabled");
 

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace LearnerManager.API.Domain.Entities
 {
-    public class Category
+    public class Category : EntityBase
     {
         [Key]
         public Guid CategoryId { get; set; }

@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace LearnerManager.API.Models
 {
-    public class TwilioModel
+    public class TwilioModel : EntityBaseModel
     {
         public string SuccessId { get; set; }
         public string StatusCode { get; set; }

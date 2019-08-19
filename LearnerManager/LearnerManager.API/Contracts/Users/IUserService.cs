@@ -8,6 +8,6 @@ namespace LearnerManager.API.Contracts.Users
 {
     public interface IUserService
     {
-        LoggedInUserModel LoginUser(LoginModel model);
+        Task<LoggedInUserModel> LoginUser(LoginModel model);
     }
 }

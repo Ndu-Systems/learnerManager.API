@@ -15,7 +15,12 @@ namespace LearnerManager.API.Helpers
             {
                 Id = model.Id,
                 AssetId = model.AssetId,
-                CategoryId = model.CategoryId
+                CategoryId = model.CategoryId,
+                CreateUserId =  model.CreateUserId,
+                CreateDate = model.CreateDate,
+                ModifyUserId = model.ModifyUserId,
+                ModifyDate = model.ModifyDate,
+                StatusId = model.StatusId
             };
         }
 
@@ -25,7 +30,12 @@ namespace LearnerManager.API.Helpers
             {
                 Id = model.Id,
                 AssetId = model.AssetId,
-                CategoryId = model.CategoryId
+                CategoryId = model.CategoryId,
+                CreateUserId = model.CreateUserId,
+                CreateDate = model.CreateDate,
+                ModifyUserId = model.ModifyUserId,
+                ModifyDate = model.ModifyDate,
+                StatusId = model.StatusId
             };
         }
 

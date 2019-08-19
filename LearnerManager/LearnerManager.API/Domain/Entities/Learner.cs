@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace LearnerManager.API.Domain.Entities
 {
     [Table("learner")]
-    public class Learner
+    public class Learner : EntityBase
     {
         [Key]
         public Guid LearnerId { get; set; }
@@ -23,6 +23,5 @@ namespace LearnerManager.API.Domain.Entities
         public string SchoolName { get; set; }
         public  string Grade { get; set; }
         public  string Section { get; set; }
-        public int StatusId { get; set; }
     }
 }

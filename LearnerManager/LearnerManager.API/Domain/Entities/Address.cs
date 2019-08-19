@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace LearnerManager.API.Domain.Entities
 {
-    public class Address
+    public class Address : EntityBase
     {
         public Guid AddressId { get; set; }
         public string StreetAddress { get; set; }
@@ -14,6 +14,7 @@ namespace LearnerManager.API.Domain.Entities
         public string PostalCode { get; set; }
         public string Street { get; set; }
         public string HouseNumber { get; set; }
-        public int StatusId { get; set; }
+
+     
     }
 }

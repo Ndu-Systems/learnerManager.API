@@ -15,7 +15,12 @@ namespace LearnerManager.API.Helpers
             {
                 MessageId = model.MessageId,
                 MessageType = model.MessageType,
-                MessageBody = model.MessageBody
+                MessageBody = model.MessageBody,
+                CreateUserId = model.CreateUserId,
+                CreateDate = model.CreateDate,
+                ModifyUserId = model.ModifyUserId,
+                ModifyDate = model.ModifyDate,
+                StatusId = model.StatusId
             };
         }
         public static MessageModel ToModel(this Message model)
@@ -24,7 +29,12 @@ namespace LearnerManager.API.Helpers
             {
                 MessageId = model.MessageId,
                 MessageType = model.MessageType,
-                MessageBody = model.MessageBody
+                MessageBody = model.MessageBody,
+                CreateUserId = model.CreateUserId,
+                CreateDate = model.CreateDate,
+                ModifyUserId = model.ModifyUserId,
+                ModifyDate = model.ModifyDate,
+                StatusId = model.StatusId
             };
         }
     }

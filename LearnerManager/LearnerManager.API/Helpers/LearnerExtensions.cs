@@ -23,6 +23,10 @@ namespace LearnerManager.API.Helpers
                 Race = model.Race,
                 SchoolName = model.SchoolName,
                 Section = model.Section,
+                CreateUserId = model.CreateUserId,
+                CreateDate = model.CreateDate,
+                ModifyUserId = model.ModifyUserId,
+                ModifyDate = model.ModifyDate,
                 StatusId = model.StatusId
             };
         }
@@ -40,6 +44,10 @@ namespace LearnerManager.API.Helpers
                 Race = model.Race,
                 SchoolName = model.SchoolName,
                 Section = model.Section,
+                CreateUserId = model.CreateUserId,
+                CreateDate = model.CreateDate,
+                ModifyUserId = model.ModifyUserId,
+                ModifyDate = model.ModifyDate,
                 StatusId = model.StatusId
             };
         }
