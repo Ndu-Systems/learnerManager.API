@@ -9,6 +9,5 @@ namespace LearnerManager.API.Models
     {
         public Guid CategoryId { get; set; }
         public string Description { get; set; }
-        public int StatusId { get; set; }
-    }
+     }
 }

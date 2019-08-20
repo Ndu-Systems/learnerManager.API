@@ -81,6 +81,8 @@ namespace LearnerManager.API.Services.Learner
                     learnerModel.SchoolName = model.SchoolName;
                     learnerModel.Grade = model.Grade;
                     learnerModel.Section = model.Section;
+                    learnerModel.ModifyUserId = model.ModifyUserId;
+                    learnerModel.ModifyDate = model.ModifyDate;
                     learnerModel.StatusId = model.StatusId;
                     _repo.Learner.Update(learnerModel.ToEntity());
                     _repo.Save();

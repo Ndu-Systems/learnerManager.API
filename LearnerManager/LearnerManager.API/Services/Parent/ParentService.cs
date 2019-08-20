@@ -80,6 +80,8 @@ namespace LearnerManager.API.Services.Parent
                     parentModel.Nationality = model.Nationality;
                     parentModel.Address = model.Address;
                     parentModel.Gender = model.Gender;
+                    parentModel.ModifyUserId = model.ModifyUserId;
+                    parentModel.ModifyDate = model.ModifyDate;
                     parentModel.StatusId = model.StatusId;
                     _repo.Parent.Update(parentModel.ToEntity());
                     _repo.Save();

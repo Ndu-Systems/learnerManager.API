@@ -64,6 +64,8 @@ namespace LearnerManager.API.Services.Asset
                     assetModel.Description = model.Description;
                     assetModel.CategoryId = model.CategoryId;
                     assetModel.CategoryId = model.CategoryId;
+                    assetModel.ModifyDate = model.ModifyDate;
+                    assetModel.ModifyUserId = model.ModifyUserId;
                     assetModel.StatusId = model.StatusId;
                     _repo.Asset.Update(assetModel.ToEntity());
                     _repo.Save();

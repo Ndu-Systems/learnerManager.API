@@ -18,7 +18,6 @@ namespace LearnerManager.API.Models
         public string SchoolName { get; set; }
         public string Grade { get; set; }
         public string Section { get; set; }
-        public int StatusId { get; set; }
     }
    
 }

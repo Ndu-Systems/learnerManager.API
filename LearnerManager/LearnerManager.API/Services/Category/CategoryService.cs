@@ -61,6 +61,8 @@ namespace LearnerManager.API.Services.Category
                     // TODO: refactor this in extensions
                     categoryModel.CategoryId = model.CategoryId;
                     categoryModel.Description = model.Description;
+                    categoryModel.ModifyDate = model.ModifyDate;
+                    categoryModel.ModifyUserId = model.ModifyUserId;
                     categoryModel.StatusId = model.StatusId;
                     _repo.Category.Update(categoryModel.ToEntity());
                     _repo.Save();

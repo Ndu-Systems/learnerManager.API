@@ -53,6 +53,7 @@ namespace LearnerManager.API.Services.Users
                 var token = tokenHandler.CreateToken(tokenDescriptor);
                 var user = new LoggedInUserModel
                 {
+                    UserId = Guid.Parse(validUser.Id),
                     UserName = validUser.UserName,
                     Email = validUser.Email,
                     School = validUser.School,
