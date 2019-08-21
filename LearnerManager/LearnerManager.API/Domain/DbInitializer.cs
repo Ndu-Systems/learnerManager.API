@@ -56,8 +56,6 @@ namespace LearnerManager.API.Domain
                     ModifyUserId = Guid.Parse("ca4b48e8-3c65-4209-a283-810838e819f1"),
                     ModifyDate = DateTime.Now,
                     LockoutEnabled = false,
-                    EmailConfirmed = true,
-                    PhoneNumberConfirmed = true,
                     PhoneNumber = "+27746958064",
                     StatusId = 1
                 };

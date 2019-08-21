@@ -8,10 +8,12 @@ namespace LearnerManager.API.Helpers.Enums
 {
     public enum AppSettingsEnum
     {
-        [Description("sqlserverconnection")]
+        [Description("Data")]
+        Data = 0,
+        [Description("ConnectionString")]
         Database = 1,
         [Description("AppSettings")]
-        Security = 2,
+        AppSettings = 2,
         [Description("CorsPolicy")]
         Cors= 3,
         [Description("Twilio")]

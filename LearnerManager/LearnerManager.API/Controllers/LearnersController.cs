@@ -21,16 +21,13 @@ namespace LearnerManager.API.Controllers
     {
         private readonly ILearnerService _learnerService;
         private readonly IParentLearnerService _parentLearnerService;
-        private readonly UserManager<User> _userManager;
-
+ 
         public LearnersController(ILearnerService learnerService, 
-            IParentLearnerService parentLearnerService,
-            UserManager<User> userManager)
+            IParentLearnerService parentLearnerService)
         {
             _learnerService = learnerService;
             _parentLearnerService = parentLearnerService;
-            _userManager = userManager;
-        }
+         }
 
         [HttpGet]
         public IActionResult Get()
@@ -49,12 +46,12 @@ namespace LearnerManager.API.Controllers
         {
             try
             {
-                var currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
-                if (currentUser != null)
+                var userId = User.Identity.Name;
+                if (userId != null)
                 {
-                    model.CreateUserId = Guid.Parse(currentUser.Id);
+                    model.CreateUserId = Guid.Parse(userId);
                     model.CreateDate = DateTime.Now;
-                    model.ModifyUserId = Guid.Parse(currentUser.Id);
+                    model.ModifyUserId = Guid.Parse(userId);
                     model.ModifyDate = DateTime.Now;
                     return Ok(_learnerService.CreateLearner(model));
                 }
@@ -72,12 +69,10 @@ namespace LearnerManager.API.Controllers
            
             try
             {
-               
-                var currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
-                if (currentUser != null)
+                var userId = User.Identity.Name;
+                if (userId != null)
                 {
-                    model.ModifyUserId = Guid.Parse(currentUser.Id);
-                    model.ModifyDate = DateTime.Now;
+                    model.ModifyUserId = Guid.Parse(userId);
                     var result = _learnerService.UpdateLearner(id, model);
                     if (result != null)
                     {
@@ -103,12 +98,11 @@ namespace LearnerManager.API.Controllers
         {
             try
             {
-                var currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
-                foreach (var model in models)
+                 foreach (var model in models)
                 {
-                    model.CreateUserId = Guid.Parse(currentUser.Id);
+                    //model.CreateUserId = Guid.Parse(currentUser.Id);
                     model.CreateDate = DateTime.Now;
-                    model.ModifyUserId = Guid.Parse(currentUser.Id);
+                    //model.ModifyUserId = Guid.Parse(currentUser.Id);
                     model.ModifyDate = DateTime.Now;
                 }
                 var result = _parentLearnerService.AddParentsForLearner(models, id);

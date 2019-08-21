@@ -17,6 +17,7 @@ using LearnerManager.API.Contracts.Users;
 using LearnerManager.API.Domain;
 using LearnerManager.API.Domain.Entities;
 using LearnerManager.API.Domain.Repository.RepositoryWrapper;
+using LearnerManager.API.Helpers.Enums;
 using LearnerManager.API.Services;
 using LearnerManager.API.Services.Asset;
 using LearnerManager.API.Services.AssetCategoryService;
@@ -83,7 +84,11 @@ namespace LearnerManager.API.Helpers
 
         public static void ConfigureSqlServer(this IServiceCollection services, IConfiguration config)
         {
-            services.AddDbContext<RepositoryContext>(ServiceLifetime.Scoped);
+            var section = config.GetSection(AppSettingsEnum.Data.GetDescription());
+            services.Configure<AppSettings>(section);
+            var appSettings = section.Get<AppSettings>();
+            var conn = appSettings.ConnectionString;
+            if (conn != null) services.AddDbContext<RepositoryContext>(o => o.UseSqlServer(conn));
         }
 
         public static void ConfigureJWTAuthentication(this IServiceCollection services, IConfiguration config)
@@ -111,12 +116,7 @@ namespace LearnerManager.API.Helpers
                     };
                 });
         }
-
-        public static void ConfigureUserIdentity(this IServiceCollection services)
-        {
-            services.AddIdentity<User, IdentityRole>()
-                .AddEntityFrameworkStores<RepositoryContext>();
-        }
+        
 
         public static void ConfigureTwilio(this IServiceCollection services)
         {

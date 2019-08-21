@@ -21,15 +21,13 @@ namespace LearnerManager.API.Controllers
     {
         private readonly ICategoryService _categoryService;
         private readonly IAssetCategoryService _assetCategoryService;
-        private readonly UserManager<User> _userManager;
+      
         public CategoriesController(ICategoryService categoryService, 
-            IAssetCategoryService assetCategoryService,
-            UserManager<User> userManager)
+            IAssetCategoryService assetCategoryService)
         {
             _categoryService = categoryService;
             _assetCategoryService = assetCategoryService;
-            _userManager = userManager;
-        }
+         }
         // GET: api/categories
         [HttpGet]
         public IActionResult Get()
@@ -50,12 +48,12 @@ namespace LearnerManager.API.Controllers
         {
             try
             {
-                var currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
-                if (currentUser != null)
+                var userId = User.Identity.Name;
+                if (userId != null)
                 {
-                    model.CreateUserId = Guid.Parse(currentUser.Id);
+                    model.CreateUserId = Guid.Parse(userId);
                     model.CreateDate = DateTime.Now;
-                    model.ModifyUserId = Guid.Parse(currentUser.Id);
+                    model.ModifyUserId = Guid.Parse(userId);
                     model.ModifyDate = DateTime.Now;
                     return Ok(_categoryService.CreateCategory(model));
                 }
@@ -73,10 +71,11 @@ namespace LearnerManager.API.Controllers
         {
             try
             {
-                var currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
-                if (currentUser != null)
+
+                var userId = User.Identity.Name;
+                if (userId != null)
                 {
-                    model.ModifyUserId = Guid.Parse(currentUser.Id);
+                    model.ModifyUserId = Guid.Parse(userId);
                     model.ModifyDate = DateTime.Now;
                     var result = _categoryService.UpdateCategory(id, model);
                     if (result != null)
@@ -111,12 +110,11 @@ namespace LearnerManager.API.Controllers
         {
             try
             {
-                var currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
-                foreach (var model in models)
+                 foreach (var model in models)
                 {
-                    model.CreateUserId = Guid.Parse(currentUser.Id);
+                    //model.CreateUserId = Guid.Parse(currentUser.Id);
                     model.CreateDate = DateTime.Now;
-                    model.ModifyUserId = Guid.Parse(currentUser.Id);
+                    //model.ModifyUserId = Guid.Parse(currentUser.Id);
                     model.ModifyDate = DateTime.Now;
                 }
                 var result = _assetCategoryService.AddAssetsForCategory(models, id);

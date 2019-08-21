@@ -20,30 +20,22 @@ namespace LearnerManager.API.Services.Users
     public class UserService : IUserService
     {
         private readonly IRepositoryWrapper _repo;
-      
-        private SignInManager<User> _signInManager;
-        public UserService(IRepositoryWrapper repo, IOptions<AppSettings> appSettings, SignInManager<User> signInManager)
+        public UserService(IRepositoryWrapper repo, IOptions<AppSettings> appSettings)
         {
             _repo = repo;
             _appSettings = appSettings.Value;
-            _signInManager = signInManager;
         }
         private readonly AppSettings _appSettings;
         public async Task <LoggedInUserModel> LoginUser(LoginModel model)
         {
-
-            var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, false, false);
-
-            if (result.Succeeded)
-            {
-                var validUser = _repo.User.FindAll().FirstOrDefault(x => x.Email.ToLower().Equals(model.Email.ToLower()));
+               var validUser = _repo.User.FindAll().FirstOrDefault(x => x.Email.ToLower().Equals(model.Email.ToLower()));
 
                 var tokenHandler = new JwtSecurityTokenHandler();
                 var key = Encoding.ASCII.GetBytes(_appSettings.Secret);
                 var tokenDescriptor = new SecurityTokenDescriptor
                 {
-                    Subject = new ClaimsIdentity(new Claim[] {
-                        new Claim(ClaimTypes.Name, validUser.UserName),
+                    Subject = new ClaimsIdentity(new[] {
+                        new Claim(ClaimTypes.Name, validUser.Id),
                         new Claim(ClaimTypes.Email, validUser.Email)
                         // TODO: Add roles
                     }),
@@ -61,9 +53,9 @@ namespace LearnerManager.API.Services.Users
                     Token = tokenHandler.WriteToken(token)
                 };
                 return user;
-            }
+     
 
-            return null;
+            
         }
     }
 }

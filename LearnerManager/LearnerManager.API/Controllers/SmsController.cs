@@ -19,11 +19,11 @@ namespace LearnerManager.API.Controllers
     public class SmsController : ControllerBase
     {
         private readonly ITwilioService _twilioService;
-        private readonly UserManager<User> _userManager;
+      
         public SmsController(ITwilioService twilioService, UserManager<User> userManager)
         {
             _twilioService = twilioService;
-            _userManager = userManager;
+            
         }
          
         [HttpPost("send-sms")]
@@ -31,12 +31,12 @@ namespace LearnerManager.API.Controllers
         {
             try
             {
-                var currentUser = await _userManager.FindByNameAsync(User.Identity.Name);
-                if (currentUser != null)
+                var userId = User.Identity.Name;
+                if (userId != null)
                 {
-                    model.CreateUserId = Guid.Parse(currentUser.Id);
+                    model.CreateUserId = Guid.Parse(userId);
                     model.CreateDate = DateTime.Now;
-                    model.ModifyUserId = Guid.Parse(currentUser.Id);
+                    model.ModifyUserId = Guid.Parse(userId);
                     model.ModifyDate = DateTime.Now;
                     var smseModel = _twilioService.SendSms(model);
                     if (smseModel == null)
