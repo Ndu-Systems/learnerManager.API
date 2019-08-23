@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace LearnerManager.API.Domain.Entities
 {
     [Table("sms")]
-    public class SMS
+    public class SMS: EntityBase
     {
         [Key]
         public Guid SMSId { get; set; }
@@ -17,6 +17,5 @@ namespace LearnerManager.API.Domain.Entities
         [Required(ErrorMessage = "SMS body is required")]
         [StringLength(100, ErrorMessage = "SMS body cannot be longer then 100 characters")]
         public string Body { get; set; }
-        public int StatusId { get; set; }
-    }
+     }
 }

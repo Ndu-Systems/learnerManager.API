@@ -3,11 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using LearnerManager.API.Contracts.Asset;
+using LearnerManager.API.Contracts.AssetCategory;
+using LearnerManager.API.Contracts.Category;
+using LearnerManager.API.Contracts.Learner;
+using LearnerManager.API.Contracts.Message;
+using LearnerManager.API.Contracts.Parent;
+using LearnerManager.API.Contracts.ParentLearner;
 using LearnerManager.API.Contracts.RepositoryWrapper;
+using LearnerManager.API.Contracts.SMS;
+using LearnerManager.API.Contracts.Twillo;
 using LearnerManager.API.Contracts.Users;
 using LearnerManager.API.Domain;
 using LearnerManager.API.Domain.Entities;
 using LearnerManager.API.Domain.Repository.RepositoryWrapper;
+using LearnerManager.API.Helpers.Enums;
+using LearnerManager.API.Services;
+using LearnerManager.API.Services.Asset;
+using LearnerManager.API.Services.AssetCategoryService;
+using LearnerManager.API.Services.Category;
+using LearnerManager.API.Services.Communications;
+using LearnerManager.API.Services.Learner;
+using LearnerManager.API.Services.Message;
+using LearnerManager.API.Services.Parent;
+using LearnerManager.API.Services.ParentLearner;
+using LearnerManager.API.Services.Sms;
 using LearnerManager.API.Services.Users;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
@@ -16,6 +36,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Twilio.Clients;
 
 namespace LearnerManager.API.Helpers
 {
@@ -49,19 +70,25 @@ namespace LearnerManager.API.Helpers
         public static void ConfigureServices(this IServiceCollection services)
         {
             services.AddTransient<IUserService, UserService>();
+            services.AddTransient<ITwilioService, TwilioService>();
+            services.AddTransient<ISmsService, SmsService>();
+            services.AddTransient<IMessageService, MessageService>();
+            services.AddTransient<IAssetService, AssetService>();
+            services.AddTransient<ICategoryService, CategoryService>();
+            services.AddTransient<IParentService, ParentService>();
+            services.AddTransient<ILearnerService, LearnerService>();
+            services.AddTransient<IParentLearnerService, ParentLearnerService>();
+            services.AddTransient<IAssetCategoryService, AssetCategoryService>();
+
         }
 
-        public static void ConfigureSQLServer(this IServiceCollection services, IConfiguration config)
+        public static void ConfigureSqlServer(this IServiceCollection services, IConfiguration config)
         {
-            var _appSettingSection = config.GetSection("sqlserverconnection");
-            services.Configure<AppSettings>(_appSettingSection);
-            var _appSetting = _appSettingSection.Get<AppSettings>();
-            var _connectionString = _appSetting.connectionString;
-            if (_connectionString != null)
-                services.AddDbContext<RepositoryContext>(
-                    options => options.UseSqlServer(_connectionString),
-                    ServiceLifetime.Scoped
-                );
+            var section = config.GetSection(AppSettingsEnum.Data.GetDescription());
+            services.Configure<AppSettings>(section);
+            var appSettings = section.Get<AppSettings>();
+            var conn = appSettings.ConnectionString;
+            if (conn != null) services.AddDbContext<RepositoryContext>(o => o.UseMySql(conn));
         }
 
         public static void ConfigureJWTAuthentication(this IServiceCollection services, IConfiguration config)
@@ -89,12 +116,12 @@ namespace LearnerManager.API.Helpers
                     };
                 });
         }
+        
 
-        public static void ConfigureUserIdentity(this IServiceCollection services)
+        public static void ConfigureTwilio(this IServiceCollection services)
         {
-            services.AddIdentity<User, IdentityRole>()
-                .AddEntityFrameworkStores<RepositoryContext>();
+            services.AddHttpClient<ITwilioRestClient, CustomTwilioClient>(client =>
+                client.DefaultRequestHeaders.Add("X-Custom-Header", "HttpClientFactory-Sample"));   
         }
-
     }
 }

@@ -19,18 +19,118 @@ namespace LearnerManager.API.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("LearnerManager.API.Domain.Entities.Asset", b =>
+                {
+                    b.Property<Guid>("AssetId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("CategoryId")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<Guid>("CreateUserId");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<string>("Id");
+
+                    b.Property<DateTime>("ModifyDate");
+
+                    b.Property<Guid>("ModifyUserId");
+
+                    b.Property<int>("StatusId");
+
+                    b.HasKey("AssetId");
+
+                    b.ToTable("Assets");
+                });
+
+            modelBuilder.Entity("LearnerManager.API.Domain.Entities.AssetCategory", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid>("AssetId");
+
+                    b.Property<Guid>("CategoryId");
+
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<Guid>("CreateUserId");
+
+                    b.Property<DateTime>("ModifyDate");
+
+                    b.Property<Guid>("ModifyUserId");
+
+                    b.Property<int>("StatusId");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AssetCategories");
+                });
+
+            modelBuilder.Entity("LearnerManager.API.Domain.Entities.Category", b =>
+                {
+                    b.Property<Guid>("CategoryId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<Guid>("CreateUserId");
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Id");
+
+                    b.Property<DateTime>("ModifyDate");
+
+                    b.Property<Guid>("ModifyUserId");
+
+                    b.Property<int>("StatusId");
+
+                    b.HasKey("CategoryId");
+
+                    b.ToTable("Categories");
+                });
+
             modelBuilder.Entity("LearnerManager.API.Domain.Entities.Learner", b =>
                 {
                     b.Property<Guid>("LearnerId")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<Guid>("CreateUserId");
+
+                    b.Property<string>("DateOfBirth");
+
                     b.Property<string>("FirstName");
+
+                    b.Property<string>("Gender");
+
+                    b.Property<string>("Grade");
+
+                    b.Property<string>("IDNumber")
+                        .IsRequired()
+                        .HasMaxLength(15);
+
+                    b.Property<string>("Id");
 
                     b.Property<string>("LastName");
 
-                    b.Property<string>("ParentContactNumber");
+                    b.Property<DateTime>("ModifyDate");
 
-                    b.Property<string>("ParentName");
+                    b.Property<Guid>("ModifyUserId");
+
+                    b.Property<string>("Race");
+
+                    b.Property<string>("SchoolName");
+
+                    b.Property<string>("Section");
 
                     b.Property<int>("StatusId");
 
@@ -44,13 +144,89 @@ namespace LearnerManager.API.Migrations
                     b.Property<Guid>("MessageId")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<Guid>("CreateUserId");
+
+                    b.Property<string>("Id");
+
                     b.Property<string>("MessageBody");
 
                     b.Property<string>("MessageType");
 
+                    b.Property<DateTime>("ModifyDate");
+
+                    b.Property<Guid>("ModifyUserId");
+
+                    b.Property<int>("StatusId");
+
                     b.HasKey("MessageId");
 
                     b.ToTable("message");
+                });
+
+            modelBuilder.Entity("LearnerManager.API.Domain.Entities.Parent", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Address");
+
+                    b.Property<string>("Cellphone")
+                        .IsRequired()
+                        .HasMaxLength(15);
+
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<Guid>("CreateUserId");
+
+                    b.Property<string>("Email");
+
+                    b.Property<string>("FullName");
+
+                    b.Property<string>("Gender");
+
+                    b.Property<string>("IDNumber")
+                        .IsRequired()
+                        .HasMaxLength(15);
+
+                    b.Property<DateTime>("ModifyDate");
+
+                    b.Property<Guid>("ModifyUserId");
+
+                    b.Property<string>("Nationality");
+
+                    b.Property<Guid>("ParentId");
+
+                    b.Property<int>("StatusId");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Parents");
+                });
+
+            modelBuilder.Entity("LearnerManager.API.Domain.Entities.ParentLearner", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<Guid>("CreateUserId");
+
+                    b.Property<Guid>("LearnerId");
+
+                    b.Property<DateTime>("ModifyDate");
+
+                    b.Property<Guid>("ModifyUserId");
+
+                    b.Property<Guid>("ParentId");
+
+                    b.Property<int>("StatusId");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ParentLearners");
                 });
 
             modelBuilder.Entity("LearnerManager.API.Domain.Entities.SMS", b =>
@@ -61,6 +237,16 @@ namespace LearnerManager.API.Migrations
                     b.Property<string>("Body")
                         .IsRequired()
                         .HasMaxLength(100);
+
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<Guid>("CreateUserId");
+
+                    b.Property<string>("Id");
+
+                    b.Property<DateTime>("ModifyDate");
+
+                    b.Property<Guid>("ModifyUserId");
 
                     b.Property<string>("SentTo");
 
@@ -78,209 +264,69 @@ namespace LearnerManager.API.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<int>("AccessFailedCount");
+                    b.Property<DateTime>("CreateDate");
 
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken();
+                    b.Property<Guid>("CreateUserId");
 
-                    b.Property<string>("Email")
-                        .HasMaxLength(256);
-
-                    b.Property<bool>("EmailConfirmed");
+                    b.Property<string>("Email");
 
                     b.Property<bool>("LockoutEnabled");
 
-                    b.Property<DateTimeOffset?>("LockoutEnd");
+                    b.Property<DateTime>("ModifyDate");
 
-                    b.Property<string>("NormalizedEmail")
-                        .HasMaxLength(256);
+                    b.Property<Guid>("ModifyUserId");
 
-                    b.Property<string>("NormalizedUserName")
-                        .HasMaxLength(256);
+                    b.Property<string>("Password");
 
                     b.Property<string>("PasswordHash");
 
                     b.Property<string>("PhoneNumber");
 
-                    b.Property<bool>("PhoneNumberConfirmed");
-
                     b.Property<string>("Region");
 
                     b.Property<string>("School");
 
-                    b.Property<string>("SecurityStamp");
+                    b.Property<int>("StatusId");
 
-                    b.Property<bool>("TwoFactorEnabled");
-
-                    b.Property<string>("UserName")
-                        .HasMaxLength(256);
+                    b.Property<string>("UserName");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("NormalizedEmail")
-                        .HasName("EmailIndex");
+                    b.ToTable("Users");
 
-                    b.HasIndex("NormalizedUserName")
-                        .IsUnique()
-                        .HasName("UserNameIndex")
-                        .HasFilter("[NormalizedUserName] IS NOT NULL");
-
-                    b.ToTable("AspNetUsers");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
-                {
-                    b.Property<string>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("ConcurrencyStamp")
-                        .IsConcurrencyToken();
-
-                    b.Property<string>("Name")
-                        .HasMaxLength(256);
-
-                    b.Property<string>("NormalizedName")
-                        .HasMaxLength(256);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("NormalizedName")
-                        .IsUnique()
-                        .HasName("RoleNameIndex")
-                        .HasFilter("[NormalizedName] IS NOT NULL");
-
-                    b.ToTable("AspNetRoles");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ClaimType");
-
-                    b.Property<string>("ClaimValue");
-
-                    b.Property<string>("RoleId")
-                        .IsRequired();
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("AspNetRoleClaims");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ClaimType");
-
-                    b.Property<string>("ClaimValue");
-
-                    b.Property<string>("UserId")
-                        .IsRequired();
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("AspNetUserClaims");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
-                {
-                    b.Property<string>("LoginProvider");
-
-                    b.Property<string>("ProviderKey");
-
-                    b.Property<string>("ProviderDisplayName");
-
-                    b.Property<string>("UserId")
-                        .IsRequired();
-
-                    b.HasKey("LoginProvider", "ProviderKey");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("AspNetUserLogins");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
-                {
-                    b.Property<string>("UserId");
-
-                    b.Property<string>("RoleId");
-
-                    b.HasKey("UserId", "RoleId");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("AspNetUserRoles");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
-                {
-                    b.Property<string>("UserId");
-
-                    b.Property<string>("LoginProvider");
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("Value");
-
-                    b.HasKey("UserId", "LoginProvider", "Name");
-
-                    b.ToTable("AspNetUserTokens");
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
-                {
-                    b.HasOne("LearnerManager.API.Domain.Entities.User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
-                {
-                    b.HasOne("LearnerManager.API.Domain.Entities.User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<string>", b =>
-                {
-                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("LearnerManager.API.Domain.Entities.User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
-                {
-                    b.HasOne("LearnerManager.API.Domain.Entities.User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.HasData(
+                        new
+                        {
+                            Id = "b58e115b-f82d-45ab-aa00-f8bb8d073651",
+                            CreateDate = new DateTime(2019, 8, 21, 22, 41, 21, 615, DateTimeKind.Local).AddTicks(1619),
+                            CreateUserId = new Guid("ca4b48e8-3c65-4209-a283-810838e819f1"),
+                            Email = "admin@studentio.net",
+                            LockoutEnabled = false,
+                            ModifyDate = new DateTime(2019, 8, 21, 22, 41, 21, 616, DateTimeKind.Local).AddTicks(5783),
+                            ModifyUserId = new Guid("ca4b48e8-3c65-4209-a283-810838e819f1"),
+                            Password = "Ndusystems@2019!",
+                            PhoneNumber = "+27746958064",
+                            Region = "Fourways",
+                            School = "Ndu Systems School of Tech",
+                            StatusId = 1,
+                            UserName = "admin@studentio.net"
+                        },
+                        new
+                        {
+                            Id = "22d9f8c5-407d-499e-80e3-73358efed423",
+                            CreateDate = new DateTime(2019, 8, 21, 22, 41, 21, 616, DateTimeKind.Local).AddTicks(7643),
+                            CreateUserId = new Guid("ca4b48e8-3c65-4209-a283-810838e819f1"),
+                            Email = "teacher@studentio.net",
+                            LockoutEnabled = false,
+                            ModifyDate = new DateTime(2019, 8, 21, 22, 41, 21, 616, DateTimeKind.Local).AddTicks(7654),
+                            ModifyUserId = new Guid("ca4b48e8-3c65-4209-a283-810838e819f1"),
+                            Password = "Ndusystems@2019!",
+                            PhoneNumber = "+27746958064",
+                            Region = "Fourways",
+                            School = "Ndu Systems School of Tech",
+                            StatusId = 1,
+                            UserName = "teacher@studentio.net"
+                        });
                 });
 #pragma warning restore 612, 618
         }

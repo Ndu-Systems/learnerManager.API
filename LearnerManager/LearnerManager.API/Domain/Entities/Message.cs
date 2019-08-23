@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace LearnerManager.API.Domain.Entities
 {
     [Table("message")]
-    public class Message
+    public class Message: EntityBase
     {
         [Key]
         public Guid MessageId { get; set; }

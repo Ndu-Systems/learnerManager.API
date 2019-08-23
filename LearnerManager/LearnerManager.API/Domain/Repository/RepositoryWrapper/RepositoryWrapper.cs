@@ -2,13 +2,23 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LearnerManager.API.Contracts.Asset;
+using LearnerManager.API.Contracts.AssetCategory;
+using LearnerManager.API.Contracts.Category;
 using LearnerManager.API.Contracts.Learner;
 using LearnerManager.API.Contracts.Message;
+using LearnerManager.API.Contracts.Parent;
+using LearnerManager.API.Contracts.ParentLearner;
 using LearnerManager.API.Contracts.RepositoryWrapper;
 using LearnerManager.API.Contracts.SMS;
 using LearnerManager.API.Contracts.Users;
+using LearnerManager.API.Domain.Repository.Asset;
+using LearnerManager.API.Domain.Repository.AssetCategory;
+using LearnerManager.API.Domain.Repository.Category;
 using LearnerManager.API.Domain.Repository.Learner;
 using LearnerManager.API.Domain.Repository.Message;
+using LearnerManager.API.Domain.Repository.Parent;
+using LearnerManager.API.Domain.Repository.ParentLearner;
 using LearnerManager.API.Domain.Repository.SMS;
 using LearnerManager.API.Domain.Repository.Users;
 
@@ -21,6 +31,11 @@ namespace LearnerManager.API.Domain.Repository.RepositoryWrapper
         private IMessageRepository _messageRepository;
         private ISMSRepository _smsRepository;
         private IUserRepository _userRepository;
+        private IAssetRepository _assetRepository;
+        private ICategoryRepository _categoryRepository;
+        private IParentRepository _parentRepository;
+        private IParentLearnerRepository _parentLearnerRepository;
+        private IAssetCategoryRepository _assetCategoryRepository;
         public RepositoryWrapper(RepositoryContext repositoryContext)
         {
             _repositoryContext = repositoryContext;
@@ -73,6 +88,64 @@ namespace LearnerManager.API.Domain.Repository.RepositoryWrapper
                 }
 
                 return _userRepository;
+            }
+        }
+
+        public IAssetRepository Asset
+        {
+            get
+            {
+                if (_assetRepository == null)
+                {
+                    _assetRepository = new AssetRepository(_repositoryContext);
+                }
+                return _assetRepository;
+            }
+        }
+        public ICategoryRepository Category
+        {
+            get
+            {
+                if (_categoryRepository == null)
+                {
+                    _categoryRepository = new CategoryRepository(_repositoryContext);
+                }
+                return _categoryRepository;
+            }
+        }
+
+        public IParentRepository Parent
+        {
+            get
+            {
+                if (_parentRepository == null)
+                {
+                    _parentRepository = new ParentRepository(_repositoryContext);
+                }
+                return _parentRepository;
+            }
+        }
+
+        public IParentLearnerRepository ParentLearner {
+            get
+            {
+                if (_parentLearnerRepository == null)
+                {
+                    _parentLearnerRepository = new ParentLearnerRepository(_repositoryContext);
+                }
+                return _parentLearnerRepository;
+            }
+        }
+
+        public IAssetCategoryRepository AssetCategory
+        {
+            get
+            {
+                if (_parentLearnerRepository == null)
+                {
+                    _assetCategoryRepository = new AssetCategoryRepository(_repositoryContext);
+                }
+                return _assetCategoryRepository;
             }
         }
 

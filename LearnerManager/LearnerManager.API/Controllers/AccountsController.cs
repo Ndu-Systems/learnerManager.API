@@ -22,7 +22,8 @@ namespace LearnerManager.API.Controllers
         [HttpPost("login")]       
         public ActionResult Post([FromBody]LoginModel model)
         {
-            return Ok(_userService.LoginUser(model));
+            var result = _userService.LoginUser(model);
+             return Ok(result.Result);
         } 
     }
 }

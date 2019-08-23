@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace LearnerManager.API.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20190808201625_initial")]
-    partial class initial
+    [Migration("20190819205558_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,18 +21,112 @@ namespace LearnerManager.API.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("LearnerManager.API.Domain.Entities.Asset", b =>
+                {
+                    b.Property<Guid>("AssetId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("CategoryId")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<Guid>("CreateUserId");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<DateTime>("ModifyDate");
+
+                    b.Property<Guid>("ModifyUserId");
+
+                    b.Property<int>("StatusId");
+
+                    b.HasKey("AssetId");
+
+                    b.ToTable("Assets");
+                });
+
+            modelBuilder.Entity("LearnerManager.API.Domain.Entities.AssetCategory", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<Guid>("AssetId");
+
+                    b.Property<Guid>("CategoryId");
+
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<Guid>("CreateUserId");
+
+                    b.Property<DateTime>("ModifyDate");
+
+                    b.Property<Guid>("ModifyUserId");
+
+                    b.Property<int>("StatusId");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AssetCategories");
+                });
+
+            modelBuilder.Entity("LearnerManager.API.Domain.Entities.Category", b =>
+                {
+                    b.Property<Guid>("CategoryId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<Guid>("CreateUserId");
+
+                    b.Property<string>("Description");
+
+                    b.Property<DateTime>("ModifyDate");
+
+                    b.Property<Guid>("ModifyUserId");
+
+                    b.Property<int>("StatusId");
+
+                    b.HasKey("CategoryId");
+
+                    b.ToTable("Categories");
+                });
+
             modelBuilder.Entity("LearnerManager.API.Domain.Entities.Learner", b =>
                 {
                     b.Property<Guid>("LearnerId")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<Guid>("CreateUserId");
+
+                    b.Property<string>("DateOfBirth");
+
                     b.Property<string>("FirstName");
+
+                    b.Property<string>("Gender");
+
+                    b.Property<string>("Grade");
+
+                    b.Property<string>("IDNumber")
+                        .IsRequired()
+                        .HasMaxLength(15);
 
                     b.Property<string>("LastName");
 
-                    b.Property<string>("ParentContactNumber");
+                    b.Property<DateTime>("ModifyDate");
 
-                    b.Property<string>("ParentName");
+                    b.Property<Guid>("ModifyUserId");
+
+                    b.Property<string>("Race");
+
+                    b.Property<string>("SchoolName");
+
+                    b.Property<string>("Section");
 
                     b.Property<int>("StatusId");
 
@@ -46,13 +140,85 @@ namespace LearnerManager.API.Migrations
                     b.Property<Guid>("MessageId")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<Guid>("CreateUserId");
+
                     b.Property<string>("MessageBody");
 
                     b.Property<string>("MessageType");
 
+                    b.Property<DateTime>("ModifyDate");
+
+                    b.Property<Guid>("ModifyUserId");
+
+                    b.Property<int>("StatusId");
+
                     b.HasKey("MessageId");
 
                     b.ToTable("message");
+                });
+
+            modelBuilder.Entity("LearnerManager.API.Domain.Entities.Parent", b =>
+                {
+                    b.Property<Guid>("ParentId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Address");
+
+                    b.Property<string>("Cellphone")
+                        .IsRequired()
+                        .HasMaxLength(15);
+
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<Guid>("CreateUserId");
+
+                    b.Property<string>("Email");
+
+                    b.Property<string>("FullName");
+
+                    b.Property<string>("Gender");
+
+                    b.Property<string>("IDNumber")
+                        .IsRequired()
+                        .HasMaxLength(15);
+
+                    b.Property<DateTime>("ModifyDate");
+
+                    b.Property<Guid>("ModifyUserId");
+
+                    b.Property<string>("Nationality");
+
+                    b.Property<int>("StatusId");
+
+                    b.HasKey("ParentId");
+
+                    b.ToTable("Parents");
+                });
+
+            modelBuilder.Entity("LearnerManager.API.Domain.Entities.ParentLearner", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<Guid>("CreateUserId");
+
+                    b.Property<Guid>("LearnerId");
+
+                    b.Property<DateTime>("ModifyDate");
+
+                    b.Property<Guid>("ModifyUserId");
+
+                    b.Property<Guid>("ParentId");
+
+                    b.Property<int>("StatusId");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ParentLearners");
                 });
 
             modelBuilder.Entity("LearnerManager.API.Domain.Entities.SMS", b =>
@@ -63,6 +229,14 @@ namespace LearnerManager.API.Migrations
                     b.Property<string>("Body")
                         .IsRequired()
                         .HasMaxLength(100);
+
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<Guid>("CreateUserId");
+
+                    b.Property<DateTime>("ModifyDate");
+
+                    b.Property<Guid>("ModifyUserId");
 
                     b.Property<string>("SentTo");
 
@@ -85,6 +259,10 @@ namespace LearnerManager.API.Migrations
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
+                    b.Property<DateTime>("CreateDate");
+
+                    b.Property<Guid>("CreateUserId");
+
                     b.Property<string>("Email")
                         .HasMaxLength(256);
 
@@ -93,6 +271,10 @@ namespace LearnerManager.API.Migrations
                     b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
+
+                    b.Property<DateTime>("ModifyDate");
+
+                    b.Property<Guid>("ModifyUserId");
 
                     b.Property<string>("NormalizedEmail")
                         .HasMaxLength(256);
@@ -111,6 +293,8 @@ namespace LearnerManager.API.Migrations
                     b.Property<string>("School");
 
                     b.Property<string>("SecurityStamp");
+
+                    b.Property<int>("StatusId");
 
                     b.Property<bool>("TwoFactorEnabled");
 

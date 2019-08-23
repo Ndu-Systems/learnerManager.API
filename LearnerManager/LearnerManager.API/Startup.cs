@@ -18,33 +18,35 @@ namespace LearnerManager.API
 {
     public class Startup
     {
-        //public Startup(IConfiguration configuration)
+        //public Startup(IHostingEnvironment env)
         //{
-        //    Configuration = configuration;
+        //    var builder = new ConfigurationBuilder()
+        //        .SetBasePath(env.ContentRootPath)
+        //        .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+        //        .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+        //        .AddEnvironmentVariables();
+
+        //    Configuration = builder.Build();
         //}
-        public Startup(IHostingEnvironment env)
+
+        //IConfigurationRoot Configuration { get; }
+        public Startup(IConfiguration configuration)
         {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
-                .AddEnvironmentVariables();
-
-            Configuration = builder.Build();
+            Configuration = configuration;
         }
-        public IConfiguration Configuration { get; }
 
+        public IConfiguration Configuration { get; }
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-
+            //services.AddSingleton(Configuration);
             services.ConfigureCors();
             services.ConfigureIISIntegration();
             services.ConfigureRepositoryWrapper();
-            services.ConfigureSQLServer(Configuration);
-            services.ConfigureJWTAuthentication(Configuration);
+            services.ConfigureSqlServer(Configuration);
             services.ConfigureServices();
-            services.ConfigureUserIdentity();
+            services.ConfigureTwilio();
+            services.ConfigureJWTAuthentication(Configuration);
             services.AddMvc()
             .AddJsonOptions(options => options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore)
             .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
@@ -57,16 +59,14 @@ namespace LearnerManager.API
             {
                 app.UseDeveloperExceptionPage();
             }
-            app.UseCors("CorsPolicy");
-
-            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            else
             {
-                ForwardedHeaders = ForwardedHeaders.All
-            });
-
-            app.UseStaticFiles();
+                app.UseHsts();
+            }
+            //app.UseStaticFiles();
+            app.UseCors("CorsPolicy");
             app.UseAuthentication();
             app.UseMvc();
-        }
+         }
     }
 }

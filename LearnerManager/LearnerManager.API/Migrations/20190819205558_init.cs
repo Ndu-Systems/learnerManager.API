@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace LearnerManager.API.Migrations
 {
-    public partial class initial : Migration
+    public partial class init : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -42,7 +42,12 @@ namespace LearnerManager.API.Migrations
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
                     School = table.Column<string>(nullable: true),
-                    Region = table.Column<string>(nullable: true)
+                    Region = table.Column<string>(nullable: true),
+                    CreateUserId = table.Column<Guid>(nullable: false),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    ModifyUserId = table.Column<Guid>(nullable: false),
+                    ModifyDate = table.Column<DateTime>(nullable: false),
+                    StatusId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -50,15 +55,77 @@ namespace LearnerManager.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "AssetCategories",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    CreateUserId = table.Column<Guid>(nullable: false),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    ModifyUserId = table.Column<Guid>(nullable: false),
+                    ModifyDate = table.Column<DateTime>(nullable: false),
+                    StatusId = table.Column<int>(nullable: false),
+                    AssetId = table.Column<Guid>(nullable: false),
+                    CategoryId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AssetCategories", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Assets",
+                columns: table => new
+                {
+                    AssetId = table.Column<Guid>(nullable: false),
+                    CreateUserId = table.Column<Guid>(nullable: false),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    ModifyUserId = table.Column<Guid>(nullable: false),
+                    ModifyDate = table.Column<DateTime>(nullable: false),
+                    StatusId = table.Column<int>(nullable: false),
+                    Description = table.Column<string>(maxLength: 50, nullable: false),
+                    CategoryId = table.Column<string>(maxLength: 50, nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Assets", x => x.AssetId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Categories",
+                columns: table => new
+                {
+                    CategoryId = table.Column<Guid>(nullable: false),
+                    CreateUserId = table.Column<Guid>(nullable: false),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    ModifyUserId = table.Column<Guid>(nullable: false),
+                    ModifyDate = table.Column<DateTime>(nullable: false),
+                    Description = table.Column<string>(nullable: true),
+                    StatusId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Categories", x => x.CategoryId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "learner",
                 columns: table => new
                 {
                     LearnerId = table.Column<Guid>(nullable: false),
+                    CreateUserId = table.Column<Guid>(nullable: false),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    ModifyUserId = table.Column<Guid>(nullable: false),
+                    ModifyDate = table.Column<DateTime>(nullable: false),
+                    StatusId = table.Column<int>(nullable: false),
                     FirstName = table.Column<string>(nullable: true),
                     LastName = table.Column<string>(nullable: true),
-                    ParentName = table.Column<string>(nullable: true),
-                    ParentContactNumber = table.Column<string>(nullable: true),
-                    StatusId = table.Column<int>(nullable: false)
+                    Gender = table.Column<string>(nullable: true),
+                    Race = table.Column<string>(nullable: true),
+                    DateOfBirth = table.Column<string>(nullable: true),
+                    IDNumber = table.Column<string>(maxLength: 15, nullable: false),
+                    SchoolName = table.Column<string>(nullable: true),
+                    Grade = table.Column<string>(nullable: true),
+                    Section = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -70,6 +137,11 @@ namespace LearnerManager.API.Migrations
                 columns: table => new
                 {
                     MessageId = table.Column<Guid>(nullable: false),
+                    CreateUserId = table.Column<Guid>(nullable: false),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    ModifyUserId = table.Column<Guid>(nullable: false),
+                    ModifyDate = table.Column<DateTime>(nullable: false),
+                    StatusId = table.Column<int>(nullable: false),
                     MessageType = table.Column<string>(nullable: true),
                     MessageBody = table.Column<string>(nullable: true)
                 },
@@ -79,14 +151,59 @@ namespace LearnerManager.API.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ParentLearners",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    CreateUserId = table.Column<Guid>(nullable: false),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    ModifyUserId = table.Column<Guid>(nullable: false),
+                    ModifyDate = table.Column<DateTime>(nullable: false),
+                    StatusId = table.Column<int>(nullable: false),
+                    LearnerId = table.Column<Guid>(nullable: false),
+                    ParentId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ParentLearners", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Parents",
+                columns: table => new
+                {
+                    ParentId = table.Column<Guid>(nullable: false),
+                    CreateUserId = table.Column<Guid>(nullable: false),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    ModifyUserId = table.Column<Guid>(nullable: false),
+                    ModifyDate = table.Column<DateTime>(nullable: false),
+                    StatusId = table.Column<int>(nullable: false),
+                    FullName = table.Column<string>(nullable: true),
+                    Nationality = table.Column<string>(nullable: true),
+                    IDNumber = table.Column<string>(maxLength: 15, nullable: false),
+                    Gender = table.Column<string>(nullable: true),
+                    Cellphone = table.Column<string>(maxLength: 15, nullable: false),
+                    Email = table.Column<string>(nullable: true),
+                    Address = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Parents", x => x.ParentId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "sms",
                 columns: table => new
                 {
                     SMSId = table.Column<Guid>(nullable: false),
+                    CreateUserId = table.Column<Guid>(nullable: false),
+                    CreateDate = table.Column<DateTime>(nullable: false),
+                    ModifyUserId = table.Column<Guid>(nullable: false),
+                    ModifyDate = table.Column<DateTime>(nullable: false),
+                    StatusId = table.Column<int>(nullable: false),
                     Subject = table.Column<string>(nullable: true),
                     SentTo = table.Column<string>(nullable: true),
-                    Body = table.Column<string>(maxLength: 100, nullable: false),
-                    StatusId = table.Column<int>(nullable: false)
+                    Body = table.Column<string>(maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -257,10 +374,25 @@ namespace LearnerManager.API.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "AssetCategories");
+
+            migrationBuilder.DropTable(
+                name: "Assets");
+
+            migrationBuilder.DropTable(
+                name: "Categories");
+
+            migrationBuilder.DropTable(
                 name: "learner");
 
             migrationBuilder.DropTable(
                 name: "message");
+
+            migrationBuilder.DropTable(
+                name: "ParentLearners");
+
+            migrationBuilder.DropTable(
+                name: "Parents");
 
             migrationBuilder.DropTable(
                 name: "sms");
