@@ -20,7 +20,7 @@ namespace LearnerManager.API.Controllers
     {
         private readonly ITwilioService _twilioService;
       
-        public SmsController(ITwilioService twilioService, UserManager<User> userManager)
+        public SmsController(ITwilioService twilioService)
         {
             _twilioService = twilioService;
             

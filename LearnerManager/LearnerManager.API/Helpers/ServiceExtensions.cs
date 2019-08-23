@@ -88,7 +88,7 @@ namespace LearnerManager.API.Helpers
             services.Configure<AppSettings>(section);
             var appSettings = section.Get<AppSettings>();
             var conn = appSettings.ConnectionString;
-            if (conn != null) services.AddDbContext<RepositoryContext>(o => o.UseSqlServer(conn));
+            if (conn != null) services.AddDbContext<RepositoryContext>(o => o.UseMySql(conn));
         }
 
         public static void ConfigureJWTAuthentication(this IServiceCollection services, IConfiguration config)
