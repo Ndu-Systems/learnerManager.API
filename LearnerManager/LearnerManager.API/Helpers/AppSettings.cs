@@ -11,7 +11,9 @@ namespace LearnerManager.API.Helpers
         public string Secret { get; set; }
         public string AccountSid { get; set; }
         public string AuthToken { get; set; }
-
+        public string BulkSms { get; set; }
+        public string Username { get; set; }
+        public string Password { get; set; }
 
     }
 }

@@ -8,6 +8,7 @@ namespace LearnerManager.API.Contracts.SMS
 {
     public interface ISmsService
     {
+        string SendSms(SmsModel model);
         string SaveSms(SmsModel model);
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LearnerManager.API.Models;
 using Microsoft.Extensions.Configuration;
 using Twilio.Clients;
 using Twilio.Http;
@@ -12,13 +13,14 @@ namespace LearnerManager.API.Services.Communications
     public class CustomTwilioClient : ITwilioRestClient
     {
         private readonly ITwilioRestClient _innerClient;
-
+        
         public CustomTwilioClient(IConfiguration config, System.Net.Http.HttpClient httpClient)
         {
-
-             _innerClient = new TwilioRestClient(
-                config["Twilio:AccountSid"],
-                config["Twilio:AuthToken"],
+            var accountSid = Environment.GetEnvironmentVariable("TWILIO_ACCOUNT_SID");
+            var authToken = Environment.GetEnvironmentVariable("TWILIO_AUTH_TOKEN");
+            _innerClient = new TwilioRestClient(
+                accountSid,
+                authToken,
                 httpClient: new SystemNetHttpClient(httpClient));
         }
 

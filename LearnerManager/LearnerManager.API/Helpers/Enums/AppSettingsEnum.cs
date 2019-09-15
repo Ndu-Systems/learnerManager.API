@@ -18,6 +18,17 @@ namespace LearnerManager.API.Helpers.Enums
         Cors= 3,
         [Description("Twilio")]
         Twilio = 4,
+        [Description("BulkSms")]
+        BulkSms = 5
+    }
 
+    public enum BulkSMSEnum
+    {
+        [Description("Username")]
+        Username = 1,
+        [Description("Password")]
+        Password = 1,
+        [Description("URI")]
+        Uri = 1,
     }
 }

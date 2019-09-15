@@ -70,7 +70,6 @@ namespace LearnerManager.API.Helpers
         public static void ConfigureServices(this IServiceCollection services)
         {
             services.AddTransient<IUserService, UserService>();
-            services.AddTransient<ITwilioService, TwilioService>();
             services.AddTransient<ISmsService, SmsService>();
             services.AddTransient<IMessageService, MessageService>();
             services.AddTransient<IAssetService, AssetService>();

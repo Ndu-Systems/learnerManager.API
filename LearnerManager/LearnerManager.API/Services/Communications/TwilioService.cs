@@ -31,19 +31,19 @@ namespace LearnerManager.API.Services.Communications
         }
         public TwilioModel SendSms(SmsModel sms)
         {
-            #if DEBUG
-                        var message = new
-                        {
-                            Sid = "debugging"
-                        };
-            #else
+            //#if DEBUG
+            //            var message = new
+            //            {
+            //                Sid = "debugging"
+            //            };
+            //#else
              
                         var message = MessageResource.Create(
                             to: new PhoneNumber(sms.SentTo),
                             from: new PhoneNumber(sms.FromNumber),
                             body: sms.Subject + "  " + sms.Body + " " + DateTime.Now.ToShortDateString(),
                             client: _client); // pass in the custom client
-            #endif
+            //#endif
 
             if (!string.IsNullOrEmpty(message.Sid))
             {

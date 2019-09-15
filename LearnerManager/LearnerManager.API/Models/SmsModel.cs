@@ -17,4 +17,12 @@ namespace LearnerManager.API.Models
         [StringLength(100, ErrorMessage = "SMS body cannot be longer then 100 characters")]
         public string Body { get; set; }
      }
+
+
+    public class BulkSMSModel
+    {
+        public string Username { get; set; }
+        public string Password { get; set; }
+        public string Url { get; set; }
+    }
 }

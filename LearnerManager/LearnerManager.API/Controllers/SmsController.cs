@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LearnerManager.API.Contracts.SMS;
 using LearnerManager.API.Contracts.Twillo;
 using LearnerManager.API.Contracts.Users;
 using LearnerManager.API.Domain.Entities;
@@ -18,12 +19,11 @@ namespace LearnerManager.API.Controllers
     [ApiController]
     public class SmsController : ControllerBase
     {
-        private readonly ITwilioService _twilioService;
+        private readonly ISmsService _smsService;
       
-        public SmsController(ITwilioService twilioService)
+        public SmsController(ISmsService smsService)
         {
-            _twilioService = twilioService;
-            
+            _smsService = smsService;
         }
          
         [HttpPost("send-sms")]
@@ -38,12 +38,12 @@ namespace LearnerManager.API.Controllers
                     model.CreateDate = DateTime.Now;
                     model.ModifyUserId = Guid.Parse(userId);
                     model.ModifyDate = DateTime.Now;
-                    var smseModel = _twilioService.SendSms(model);
-                    if (smseModel == null)
+                    var message = _smsService.SendSms(model);
+                    if (message == null)
                     {
                         return BadRequest("Sending message resulted in an error, please contact system administrator!");
                     }
-                    return Ok(smseModel);
+                    return Ok(message);
                 }
                 return BadRequest("An error has occurred, please contact system administrator!");
             }
